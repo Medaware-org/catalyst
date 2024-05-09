@@ -4,7 +4,7 @@ import jakarta.persistence.*
 import java.util.*
 
 @Entity
-@Table(name = "auth_token")
+@Table(name = "auth_token", schema = "medaware")
 class TokenEntity {
 
     @Id

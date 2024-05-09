@@ -1,4 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import java.nio.file.Files
+import java.nio.file.Path
+import java.nio.file.StandardCopyOption
 
 plugins {
     id("org.springframework.boot") version "3.2.3"
@@ -19,7 +22,18 @@ repositories {
     mavenCentral()
 }
 
+fun copyOpenApiSpec(): Unit =
+    run {
+        Files.copy(
+            Path.of("openapi/spec.yaml"),
+            Path.of("$rootDir/src/main/resources/static/spec.yaml"),
+            StandardCopyOption.REPLACE_EXISTING
+        )
+    }
+
 openApiGenerate {
+    copyOpenApiSpec()
+
     generatorName = "kotlin-spring"
     inputSpec = "openapi/spec.yaml"
     invokerPackage = "org.medaware.catalyst"
@@ -63,6 +77,9 @@ tasks.withType<KotlinCompile> {
 }
 
 tasks.compileKotlin {
+    doFirst {
+        copyOpenApiSpec()
+    }
     dependsOn("openApiGenerate")
 }
 

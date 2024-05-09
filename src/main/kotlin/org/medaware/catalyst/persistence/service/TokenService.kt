@@ -40,7 +40,11 @@ class TokenService(
             return tokens.first().token
 
         val bytes = Random.Default.nextBytes(128)
-        return Base64.getEncoder().encodeToString(bytes)
+        val tokenStr = Base64.getEncoder().encodeToString(bytes)
+
+        createToken(tokenStr, userId)
+
+        return tokenStr
     }
 
     fun userOfToken(token: String): UserEntity? {
@@ -49,6 +53,10 @@ class TokenService(
 
     fun valid(token: String): Boolean {
         return tokenRepository.findTokenEntityByToken(token) != null
+    }
+
+    fun invalidateTokensOf(userId: UUID) {
+        tokenRepository.deleteAll(tokenRepository.findTokenEntityByUserId(userId))
     }
 
 }

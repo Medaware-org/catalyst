@@ -5,7 +5,9 @@ import org.medaware.catalyst.model.LoginRequest
 import org.medaware.catalyst.model.RegistrationRequest
 import org.medaware.catalyst.persistence.entity.UserEntity
 import org.medaware.catalyst.persistence.repository.UserRepository
+import org.medaware.catalyst.security.authentication.CatalystAuthentication
 import org.springframework.http.HttpStatus
+import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 import java.util.*
@@ -40,15 +42,25 @@ class UserService(
     }
 
     fun loginUser(req: LoginRequest): String {
-        (userRepository.findUserEntityByUsernameAndPasswordHash(req.userName, bcrypt.encode(req.password)) ?: run {
-            throw CatalystException(
-                "Login failed",
-                "The credentials do not match any existing user",
-                HttpStatus.UNAUTHORIZED
-            )
+        val e = CatalystException(
+            "Login failed",
+            "The credentials do not match any existing user",
+            HttpStatus.UNAUTHORIZED
+        )
+
+        (userRepository.findUserEntityByUsername(req.userName) ?: run {
+            throw e
         }).let {
+            if (!bcrypt.matches(req.password, it.passwordHash))
+                throw e
+
             return tokenService.provideToken(it.id)
         }
+    }
+
+    fun logoutUser() {
+        val user = (SecurityContextHolder.getContext().authentication as CatalystAuthentication).user
+        tokenService.invalidateTokensOf(user.id)
     }
 
 }

@@ -60,6 +60,16 @@ paths:
               schema:
                 $ref: "#/components/schemas/tokenResponse"
 
+  /signout:
+    post:
+      operationId: catalystLogout
+      summary: Log out a logged-in user
+      tags:
+        - Authentication
+      responses:
+        200:
+          description: OK
+
 components:
   schemas:
     catalystError:
