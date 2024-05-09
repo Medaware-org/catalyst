@@ -1,5 +1,6 @@
 package org.medaware.catalyst.persistence.service
 
+import org.medaware.catalyst.authenticatedUser
 import org.medaware.catalyst.error.CatalystException
 import org.medaware.catalyst.model.LoginRequest
 import org.medaware.catalyst.model.RegistrationRequest
@@ -59,8 +60,7 @@ class UserService(
     }
 
     fun logoutUser() {
-        val user = (SecurityContextHolder.getContext().authentication as CatalystAuthentication).user
-        tokenService.invalidateTokensOf(user.id)
+        tokenService.invalidateTokensOf(authenticatedUser().id)
     }
 
 }

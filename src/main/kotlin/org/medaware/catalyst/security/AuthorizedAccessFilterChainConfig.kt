@@ -26,6 +26,8 @@ class AuthorizedAccessFilterChainConfig(
             cors { disable() }
             csrf { disable() }
 
+            logout { disable() }
+
             securityMatcher("/**")
 
             authorizeRequests {

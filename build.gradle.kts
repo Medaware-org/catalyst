@@ -59,6 +59,8 @@ dependencies {
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.security:spring-security-test")
+    implementation("org.apache.lucene:lucene-core:9.10.0")
+    implementation("org.apache.lucene:lucene-queryparser:9.10.0")
 }
 
 sourceSets {

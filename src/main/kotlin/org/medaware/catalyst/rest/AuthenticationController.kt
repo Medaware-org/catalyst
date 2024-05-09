@@ -6,7 +6,6 @@ import org.medaware.catalyst.model.TokenResponse
 import org.medaware.catalyst.openapi.controllers.AuthenticationApi
 import org.medaware.catalyst.persistence.service.UserService
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController

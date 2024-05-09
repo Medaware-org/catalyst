@@ -60,7 +60,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/tokenResponse"
 
-  /signout:
+  /logout:
     post:
       operationId: catalystLogout
       summary: Log out a logged-in user
@@ -69,6 +69,60 @@ paths:
       responses:
         200:
           description: OK
+
+  /article:
+    post:
+      operationId: catalystCreateArticle
+      summary: Create a new article
+      tags:
+        - Article
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/articleCreationRequest"
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/uuidResponse"
+    get:
+      operationId: catalystQueryArticle
+      summary: Search existing articles by querying lucene
+      tags:
+        - Article
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/articleQueryRequest"
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/articleSearchResponse"
+
+#  /image:
+#    post:
+#      operationId: catalystCreateImage
+#      summary: Create and upload a new image
+#      tags:
+#        - Resources
+#      requestBody:
+#        required: true
+#        content:
+#          multipart/form-data:
+#            schema:
+#              $ref: "#/components/schemas/imageCreationRequest"
+#      responses:
+#        200:
+#          description: OK
 
 components:
   schemas:
@@ -121,3 +175,81 @@ components:
       properties:
         token:
           type: string
+
+    uuidResponse:
+      type: object
+      required:
+        - uuid
+      properties:
+        uuid:
+          type: string
+          format: uuid
+
+    imageDependency:
+      type: object
+      required:
+        - designator
+      properties:
+        designator:
+          type: string
+
+    articleCreationRequest:
+      type: object
+      required:
+        - title
+        - lead
+        - content
+      properties:
+        title:
+          type: string
+        lead:
+          type: string
+        content:
+          type: string
+#        dependencies:
+#          type: array
+#          items:
+#            $ref: "#/components/schemas/imageDependency"
+
+#    imageCreationRequest:
+#      type: object
+#      required:
+#        - designator
+#        - imageFile
+#      properties:
+#        designator:
+#          type: string
+#        file:
+#          type: string
+#          format: binary
+
+    articleQueryRequest:
+      type: object
+      required:
+        - query
+        - hitsCount
+      properties:
+        query:
+          type: string
+        hitsCount:
+          type: integer
+
+    briefArticleResponse:
+      type: object
+      required:
+        - title
+        - lead
+        - id
+      properties:
+        title:
+          type: string
+        lead:
+          type: string
+        id:
+          type: string
+          format: uuid
+
+    articleSearchResponse:
+      type: array
+      items:
+        $ref: "#/components/schemas/briefArticleResponse"
