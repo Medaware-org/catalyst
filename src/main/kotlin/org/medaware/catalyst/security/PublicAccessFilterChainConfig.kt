@@ -25,6 +25,7 @@ class PublicAccessFilterChainConfig {
                 "/",
                 "/login",
                 "/register",
+                "/search",
                 "/swagger-ui/**",
                 "/v3/**",
                 "/spec.yaml",

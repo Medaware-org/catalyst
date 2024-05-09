@@ -89,17 +89,19 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/uuidResponse"
+
+  /search:
     get:
       operationId: catalystQueryArticle
       summary: Search existing articles by querying lucene
       tags:
         - Article
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/articleQueryRequest"
+      parameters:
+        - in: query
+          name: query
+          required: true
+          schema:
+            type: string
       responses:
         200:
           description: OK
@@ -222,17 +224,6 @@ components:
 #        file:
 #          type: string
 #          format: binary
-
-    articleQueryRequest:
-      type: object
-      required:
-        - query
-        - hitsCount
-      properties:
-        query:
-          type: string
-        hitsCount:
-          type: integer
 
     briefArticleResponse:
       type: object

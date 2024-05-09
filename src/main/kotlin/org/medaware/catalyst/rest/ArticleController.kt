@@ -20,7 +20,7 @@ class ArticleController(
         return ResponseEntity.ok(UuidResponse(articleService.createArticle(articleCreationRequest)))
     }
 
-    override fun catalystQueryArticle(articleQueryRequest: ArticleQueryRequest): ResponseEntity<List<BriefArticleResponse>> {
-        return ResponseEntity.ok(articleService.search(articleQueryRequest))
+    override fun catalystQueryArticle(query: String): ResponseEntity<List<BriefArticleResponse>> {
+        return ResponseEntity.ok(articleService.search(query))
     }
 }

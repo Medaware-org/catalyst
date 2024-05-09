@@ -53,8 +53,8 @@ class ArticleService(
         return doc
     }
 
-    fun search(articleQueryRequest: ArticleQueryRequest): List<BriefArticleResponse> {
-        return luceneService.search(articleQueryRequest.query, articleQueryRequest.hitsCount).map {
+    fun search(query: String): List<BriefArticleResponse> {
+        return luceneService.search(query, 15).map {
             return@map BriefArticleResponse(it.get("title"), it.get("lead"), UUID.fromString(it.get("id")))
         }
     }
