@@ -1,0 +1,13 @@
+README.md
+build.gradle.kts
+pom.xml
+settings.gradle
+src/main/kotlin/org/medaware/catalyst/SpringDocConfiguration.kt
+src/main/kotlin/org/medaware/catalyst/model/CatalystError.kt
+src/main/kotlin/org/medaware/catalyst/model/LoginRequest.kt
+src/main/kotlin/org/medaware/catalyst/model/RegistrationRequest.kt
+src/main/kotlin/org/medaware/catalyst/model/TokenResponse.kt
+src/main/kotlin/org/medaware/catalyst/openapi/controllers/ApiUtil.kt
+src/main/kotlin/org/medaware/catalyst/openapi/controllers/AuthenticationApi.kt
+src/main/kotlin/org/medaware/catalyst/openapi/controllers/Exceptions.kt
+src/main/kotlin/org/medaware/catalyst/openapi/controllers/StatusApi.kt
