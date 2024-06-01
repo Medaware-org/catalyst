@@ -2,6 +2,7 @@ package org.medaware.catalyst.error
 
 import jakarta.servlet.http.HttpServletResponse
 import org.medaware.catalyst.model.CatalystError
+import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Component
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
 
 @ControllerAdvice
-@Component
+@Configuration
 class ErrorHandlerConfig {
 
     @ExceptionHandler(Exception::class)

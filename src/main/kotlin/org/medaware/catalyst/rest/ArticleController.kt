@@ -1,9 +1,5 @@
 package org.medaware.catalyst.rest
 
-import org.medaware.catalyst.lucene.LuceneService
-import org.medaware.catalyst.model.ArticleCreationRequest
-import org.medaware.catalyst.model.ArticleQueryRequest
-import org.medaware.catalyst.model.BriefArticleResponse
 import org.medaware.catalyst.model.UuidResponse
 import org.medaware.catalyst.openapi.controllers.ArticleApi
 import org.medaware.catalyst.persistence.service.ArticleService
@@ -12,15 +8,11 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 class ArticleController(
-    val articleService: ArticleService,
-    val luceneService: LuceneService
+    val articleService: ArticleService
 ) : ArticleApi {
 
-    override fun catalystCreateArticle(articleCreationRequest: ArticleCreationRequest): ResponseEntity<UuidResponse> {
-        return ResponseEntity.ok(UuidResponse(articleService.createArticle(articleCreationRequest)))
+    override fun catalystCreateArticle(title: String, lead: String, html: String): ResponseEntity<UuidResponse> {
+        return ResponseEntity.ok(UuidResponse(articleService.createArticle(title, lead, html)))
     }
 
-    override fun catalystQueryArticle(query: String): ResponseEntity<List<BriefArticleResponse>> {
-        return ResponseEntity.ok(articleService.search(query))
-    }
 }

@@ -79,9 +79,20 @@ paths:
       requestBody:
         required: true
         content:
-          application/json:
+          multipart/form-data:
             schema:
-              $ref: "#/components/schemas/articleCreationRequest"
+              type: object
+              required:
+                - title
+                - lead
+                - html
+              properties:
+                title:
+                  type: string
+                lead:
+                  type: string
+                html:
+                  type: string
       responses:
         200:
           description: OK
@@ -90,12 +101,50 @@ paths:
               schema:
                 $ref: "#/components/schemas/uuidResponse"
 
-  /search:
+  /public/article:
+    get:
+      operationId: catalystGetArticle
+      summary: Retrieve a full article by ID
+      tags:
+        - Public
+      parameters:
+        - in: query
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - title
+                  - lead
+                  - html
+                properties:
+                  title:
+                    type: string
+                  lead:
+                    type: string
+                  html:
+                    type: string
+        404:
+          description: Article not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/catalystError"
+
+  /public/search:
     get:
       operationId: catalystQueryArticle
       summary: Search existing articles by querying lucene
       tags:
-        - Article
+        - Public
       parameters:
         - in: query
           name: query
@@ -109,22 +158,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/articleSearchResponse"
-
-#  /image:
-#    post:
-#      operationId: catalystCreateImage
-#      summary: Create and upload a new image
-#      tags:
-#        - Resources
-#      requestBody:
-#        required: true
-#        content:
-#          multipart/form-data:
-#            schema:
-#              $ref: "#/components/schemas/imageCreationRequest"
-#      responses:
-#        200:
-#          description: OK
 
 components:
   schemas:
@@ -186,44 +219,6 @@ components:
         uuid:
           type: string
           format: uuid
-
-    imageDependency:
-      type: object
-      required:
-        - designator
-      properties:
-        designator:
-          type: string
-
-    articleCreationRequest:
-      type: object
-      required:
-        - title
-        - lead
-        - content
-      properties:
-        title:
-          type: string
-        lead:
-          type: string
-        content:
-          type: string
-#        dependencies:
-#          type: array
-#          items:
-#            $ref: "#/components/schemas/imageDependency"
-
-#    imageCreationRequest:
-#      type: object
-#      required:
-#        - designator
-#        - imageFile
-#      properties:
-#        designator:
-#          type: string
-#        file:
-#          type: string
-#          format: binary
 
     briefArticleResponse:
       type: object

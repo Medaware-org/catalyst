@@ -29,7 +29,8 @@ class PublicAccessFilterChainConfig {
                 "/swagger-ui/**",
                 "/v3/**",
                 "/spec.yaml",
-                "/swagger-ui/index.html"
+                "/swagger-ui/index.html",
+                "/public/**"
             )
 
             authorizeRequests {

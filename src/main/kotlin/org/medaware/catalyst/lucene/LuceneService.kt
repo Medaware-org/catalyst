@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory
 import org.springframework.core.Ordered.HIGHEST_PRECEDENCE
 import org.springframework.core.Ordered.LOWEST_PRECEDENCE
 import org.springframework.core.annotation.Order
+import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Service
 
 @Service
@@ -27,6 +28,7 @@ class LuceneService(
 ) {
 
     private val logger: Logger = LoggerFactory.getLogger(this::class.java)
+    private val documentBuffer: MutableList<ArticleEntity> = mutableListOf()
 
     private lateinit var writer: IndexWriter
 
@@ -45,7 +47,7 @@ class LuceneService(
         val articles = articleService.allArticles()
 
         articles.forEach {
-            writer.addDocument(articleService.luceneDocument(writer, it))
+            appendIndex(it)
         }
 
         logger.info("Index built with ${articles.size} articles.")
@@ -53,9 +55,19 @@ class LuceneService(
         writer.commit()
     }
 
-    fun appendIndex(article: ArticleEntity) {
-        writer.addDocument(articleService.luceneDocument(writer, article))
+    @Scheduled(fixedRate = 1000*60*10)
+    fun flushIndex() {
+        writer.addDocuments(this.documentBuffer.map { articleService.luceneDocument(writer, it) })
         writer.commit()
+    }
+
+    fun appendIndex(article: ArticleEntity) {
+        this.documentBuffer.add(article)
+
+        if(this.documentBuffer.size > 20) {
+            this.flushIndex()
+        }
+
     }
 
     fun search(queryStr: String, hits: Int): List<Document> {
