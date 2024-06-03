@@ -101,6 +101,20 @@ paths:
               schema:
                 $ref: "#/components/schemas/uuidResponse"
 
+  /public/articles:
+    get:
+      operationId: catalystGetAllArticles
+      summary: Retrieve all articles
+      tags:
+        - Public
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/articleSearchResponse"
+
   /public/article:
     get:
       operationId: catalystGetArticle

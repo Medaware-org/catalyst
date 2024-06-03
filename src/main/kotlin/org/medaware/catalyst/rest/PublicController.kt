@@ -21,4 +21,10 @@ class PublicController(
         val art = articleService.byId(id)
         return ResponseEntity.ok(CatalystCreateArticleRequest(art[0], art[1], art[2]))
     }
+
+    override fun catalystGetAllArticles(): ResponseEntity<List<BriefArticleResponse>> {
+        return ResponseEntity.ok(articleService.allArticles().map {
+            BriefArticleResponse(it.title, it.lead, it.id)
+        })
+    }
 }
