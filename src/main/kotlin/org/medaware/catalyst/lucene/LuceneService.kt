@@ -19,6 +19,7 @@ import org.springframework.core.annotation.Order
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Service
 
+
 @Service
 class LuceneService(
     val articleService: ArticleService,
