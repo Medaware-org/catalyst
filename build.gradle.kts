@@ -49,7 +49,9 @@ openApiGenerate {
 }
 
 dependencies {
-    implementation("org.medaware:anterogradia:1.0.0")
+    implementation("org.medaware:anterogradia:+")
+    implementation("org.medaware:antg-mdk:+")
+
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0")
     runtimeOnly("org.postgresql:postgresql")
