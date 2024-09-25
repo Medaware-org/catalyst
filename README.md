@@ -1,6 +1,6 @@
 ### Medaware Catalyst&trade;
 
-### Building
+#### Building
 
 This project uses the following Medaware dependencies:
 
