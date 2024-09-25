@@ -9,5 +9,5 @@ implementation("org.medaware:anterogradia:+")
 implementation("org.medaware:anterogradia-avis:+")
 ```
 
-Thus, both **Anterogradia** and the **ANTG MDK Library** need to be built and compiled beforehand, preferably in that order, since
+Thus, both **Anterogradia** and the **AVIS Library Kit** need to be built and compiled beforehand, preferably in that order, since
 the latter depends on the former.
