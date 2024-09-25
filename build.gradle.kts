@@ -50,7 +50,7 @@ openApiGenerate {
 
 dependencies {
     implementation("org.medaware:anterogradia:+")
-    implementation("org.medaware:antg-mdk:+")
+    implementation("org.medaware:anterogradia-avis:+")
 
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0")
