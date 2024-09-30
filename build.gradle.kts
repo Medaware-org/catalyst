@@ -66,6 +66,12 @@ kotlin {
     }
 }
 
+tasks.compileKotlin {
+    doFirst {
+        Files.copy(File("openapi/spec.yaml"), File("src/main/resources/spec.yaml"))
+    }
+}
+
 tasks.withType<Test> {
     useJUnitPlatform()
 }
