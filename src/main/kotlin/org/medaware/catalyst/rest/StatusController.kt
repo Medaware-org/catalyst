@@ -5,9 +5,10 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-class StatusMapping : StatusApi {
+class StatusController : StatusApi {
 
     override fun catalystStatus(): ResponseEntity<String> {
-        return super.catalystStatus()
+        return ResponseEntity.ok("Medaware Catalyst is up and running !")
     }
+
 }
