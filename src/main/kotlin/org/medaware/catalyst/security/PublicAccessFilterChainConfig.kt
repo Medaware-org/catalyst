@@ -12,6 +12,8 @@ class PublicAccessFilterChainConfig {
     @Bean
     fun publicAccessFilterChain(http: HttpSecurity): SecurityFilterChain {
         http {
+            csrf { disable() }
+            cors { disable() }
             securityMatcher("**")
             authorizeHttpRequests {
                 authorize(anyRequest, permitAll)

@@ -1,0 +1,51 @@
+openapi: 3.0.3
+
+info:
+  title: Medaware Catalyst
+  description: The API Specification for Medaware
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8080
+    description: Local development environment
+
+paths:
+  /:
+    get:
+      operationId: catalystStatus
+      summary: Catalyst status endpoint
+      tags:
+        - Status
+      responses:
+        200:
+          description: Medaware Catalyst is up and running
+          content:
+            text/plain:
+              schema:
+                type: string
+
+  /antg/compile:
+    post:
+      operationId: compileAnterogradia
+      summary: Compile Anterogradia sources
+      tags:
+        - Anterogradia
+      requestBody:
+        required: true
+        content:
+          text/plain:
+            schema:
+              type: string
+      responses:
+        200:
+          description: Compilation successful
+          content:
+            text/html:
+              schema:
+                type: string
+        422:
+          description: Compilation failed with error
+          content:
+            text/plain:
+              schema:
+                type: string
