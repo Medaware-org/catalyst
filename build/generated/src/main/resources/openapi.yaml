@@ -1,0 +1,245 @@
+openapi: 3.0.3
+info:
+  description: The API Specification for Medaware
+  title: Medaware Catalyst
+  version: 1.0.0
+servers:
+- description: Local development environment
+  url: http://localhost:8080
+paths:
+  /:
+    get:
+      operationId: catalystStatus
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: Medaware Catalyst is up and running
+      summary: A status endpoint
+      tags:
+      - Status
+  /register:
+    post:
+      operationId: catalystRegister
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/registrationRequest'
+        required: true
+      responses:
+        "200":
+          description: User successfully registered
+      summary: Register a new Medaware user
+      tags:
+      - Authentication
+  /login:
+    post:
+      operationId: catalystLogin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/loginRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tokenResponse'
+          description: Login successful
+      summary: Provide authentication facilities for existing users
+      tags:
+      - Authentication
+  /logout:
+    post:
+      operationId: catalystLogout
+      responses:
+        "200":
+          description: OK
+      summary: Log out a logged-in user
+      tags:
+      - Authentication
+  /article:
+    post:
+      operationId: catalystCreateArticle
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/catalystCreateArticle_request'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/uuidResponse'
+          description: OK
+      summary: Create a new article
+      tags:
+      - Article
+  /public/articles:
+    get:
+      operationId: catalystGetAllArticles
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/articleSearchResponse'
+          description: OK
+      summary: Retrieve all articles
+      tags:
+      - Public
+  /public/article:
+    get:
+      operationId: catalystGetArticle
+      parameters:
+      - explode: true
+        in: query
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/catalystCreateArticle_request'
+          description: OK
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/catalystError'
+          description: Article not found
+      summary: Retrieve a full article by ID
+      tags:
+      - Public
+  /public/search:
+    get:
+      operationId: catalystQueryArticle
+      parameters:
+      - explode: true
+        in: query
+        name: query
+        required: true
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/articleSearchResponse'
+          description: OK
+      summary: Search existing articles by querying lucene
+      tags:
+      - Public
+components:
+  schemas:
+    catalystError:
+      properties:
+        brief:
+          type: string
+        message:
+          type: string
+        status:
+          type: integer
+      required:
+      - brief
+      - message
+      - status
+      type: object
+    registrationRequest:
+      properties:
+        userName:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        password:
+          type: string
+      required:
+      - firstName
+      - lastName
+      - password
+      - userName
+      type: object
+    loginRequest:
+      properties:
+        userName:
+          type: string
+        password:
+          type: string
+      required:
+      - password
+      - userName
+      type: object
+    tokenResponse:
+      example:
+        token: token
+      properties:
+        token:
+          type: string
+      required:
+      - token
+      type: object
+    uuidResponse:
+      example:
+        uuid: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+      properties:
+        uuid:
+          format: uuid
+          type: string
+      required:
+      - uuid
+      type: object
+    briefArticleResponse:
+      example:
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        title: title
+        lead: lead
+      properties:
+        title:
+          type: string
+        lead:
+          type: string
+        id:
+          format: uuid
+          type: string
+      required:
+      - id
+      - lead
+      - title
+      type: object
+    articleSearchResponse:
+      items:
+        $ref: '#/components/schemas/briefArticleResponse'
+      type: array
+    catalystCreateArticle_request:
+      example:
+        html: html
+        title: title
+        lead: lead
+      properties:
+        title:
+          type: string
+        lead:
+          type: string
+        html:
+          type: string
+      required:
+      - html
+      - lead
+      - title
+      type: object
