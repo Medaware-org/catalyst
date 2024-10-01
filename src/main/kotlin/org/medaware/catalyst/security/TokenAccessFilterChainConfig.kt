@@ -1,10 +1,10 @@
 package org.medaware.catalyst.security
 
+import org.medaware.catalyst.security.filter.CorsFilter
 import org.medaware.catalyst.security.filter.TokenAccessFilter
 import org.medaware.catalyst.service.SessionService
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.core.Ordered.HIGHEST_PRECEDENCE
 import org.springframework.core.Ordered.LOWEST_PRECEDENCE
 import org.springframework.core.annotation.Order
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
@@ -22,12 +22,12 @@ class TokenAccessFilterChainConfig(
     fun tokenAccessFilterChain(http: HttpSecurity): SecurityFilterChain {
         http {
             csrf { disable() }
-            cors { disable() }
             securityMatcher("**")
             authorizeHttpRequests {
                 authorize(anyRequest, permitAll)
             }
             addFilterBefore<UsernamePasswordAuthenticationFilter>(TokenAccessFilter(sessionService))
+            addFilterBefore<TokenAccessFilter>(CorsFilter())
         }
         return http.build()
     }

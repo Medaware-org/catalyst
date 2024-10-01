@@ -16,7 +16,6 @@ class PublicAccessFilterChainConfig {
     fun publicAccessFilterChain(http: HttpSecurity): SecurityFilterChain {
         http {
             csrf { disable() }
-            cors { disable() }
             securityMatcher("/", "/swagger-ui/**", "/catalyst-api-docs", "/v3/**")
             authorizeHttpRequests {
                 authorize(anyRequest, permitAll)
