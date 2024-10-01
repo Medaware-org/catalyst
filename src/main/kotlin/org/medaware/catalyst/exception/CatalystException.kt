@@ -1,3 +1,5 @@
 package org.medaware.catalyst.exception
 
-class CatalystException(val summary: String, override val message: String) :  RuntimeException(message)
+import org.springframework.http.HttpStatus
+
+class CatalystException(val summary: String, override val message: String, val statusCode: HttpStatus) :  RuntimeException(message)

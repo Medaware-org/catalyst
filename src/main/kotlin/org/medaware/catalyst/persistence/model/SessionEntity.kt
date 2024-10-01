@@ -8,6 +8,7 @@ import jakarta.persistence.Id
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.ManyToOne
 import jakarta.persistence.Table
+import org.medaware.catalyst.dto.TangentialSessionResponse
 import java.time.Instant
 import java.util.UUID
 
@@ -32,5 +33,7 @@ class SessionEntity {
     @ManyToOne
     @JoinColumn(name = "maintainer_id")
     lateinit var maintainer: MaintainerEntity
+
+    fun toDto(): TangentialSessionResponse = TangentialSessionResponse(sessionToken)
 
 }

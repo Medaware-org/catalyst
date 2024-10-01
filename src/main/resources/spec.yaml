@@ -48,4 +48,53 @@ paths:
           content:
             text/plain:
               schema:
+                type:
+                  string
+
+  /tan/login:
+    post:
+      operationId: tangentialLogin
+      summary: Log-in to the Tangential system
+      tags:
+        - Tangential
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/tangentialLoginRequest"
+      responses:
+        200:
+          description: Log-in successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/tangentialSessionResponse"
+        401:
+          description: Invalid credentials
+          content:
+            text/plain:
+              schema:
                 type: string
+
+
+components:
+  schemas:
+    tangentialLoginRequest:
+      type: object
+      required:
+        - username
+        - password
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+
+    tangentialSessionResponse:
+      type: object
+      required:
+        - token
+      properties:
+        token:
+          type: string
