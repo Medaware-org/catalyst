@@ -14,16 +14,30 @@ class SessionService(
     val sessionRepository: SessionRepository
 ) {
 
+    private fun tokenValidityBorder(): Instant = Instant.now().minus(24, ChronoUnit.HOURS)
+
     fun getValidSession(sessionToken: String): SessionEntity? = sessionRepository.getSessionEntityByTokenAfter(
         sessionToken,
-        Instant.now().minus(24, ChronoUnit.HOURS)
+        tokenValidityBorder()
     )
 
-    fun removeAllSessionsOf(maintainer: MaintainerEntity) =
-        sessionRepository.deleteAll(sessionRepository.getSessionEntitiesByMaintainer(maintainer))
+    fun getValidSessionOf(maintainer: MaintainerEntity) = sessionRepository.getSessionEntityOfMaintainerAfter(
+        maintainer,
+        tokenValidityBorder()
+    )
+
+    fun invalidateAllSessionsOf(maintainer: MaintainerEntity) {
+        sessionRepository.getSessionEntitiesByMaintainer(maintainer).forEach {
+            it.invalidated = true
+            sessionRepository.save(it)
+        }
+    }
 
     fun createSession(maintainer: MaintainerEntity): SessionEntity {
-        removeAllSessionsOf(maintainer)
+        val previousSession = getValidSessionOf(maintainer)
+
+        if (previousSession != null)
+            return previousSession
 
         val bytes = ByteArray(128)
         SecureRandom().nextBytes(bytes)

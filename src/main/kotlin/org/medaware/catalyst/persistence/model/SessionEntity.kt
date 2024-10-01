@@ -30,6 +30,9 @@ class SessionEntity {
     @Column(name = "accessed_at")
     lateinit var accessedAt: Instant
 
+    @Column(name = "invalidated")
+    var invalidated: Boolean = false
+
     @ManyToOne
     @JoinColumn(name = "maintainer_id")
     lateinit var maintainer: MaintainerEntity
