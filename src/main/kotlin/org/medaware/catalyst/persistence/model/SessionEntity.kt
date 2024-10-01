@@ -5,6 +5,8 @@ import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
+import jakarta.persistence.JoinColumn
+import jakarta.persistence.ManyToOne
 import jakarta.persistence.Table
 import java.time.Instant
 import java.util.UUID
@@ -18,13 +20,17 @@ class SessionEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
     lateinit var id: UUID
 
-    @Column(name = "maintainer_id")
-    lateinit var maintainerId: UUID
-
     @Column(name = "session_token")
     lateinit var sessionToken: String
 
     @Column(name = "created_at")
     lateinit var createdAt: Instant
+
+    @Column(name = "accessed_at")
+    lateinit var accessedAt: Instant
+
+    @ManyToOne
+    @JoinColumn(name = "maintainer_id")
+    lateinit var maintainer: MaintainerEntity
 
 }

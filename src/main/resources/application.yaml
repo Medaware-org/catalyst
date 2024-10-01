@@ -15,3 +15,8 @@ server:
 springdoc:
   swagger-ui:
     url: /catalyst-api-docs
+
+catalyst:
+  default-access:
+    username: admin
+    password: admin

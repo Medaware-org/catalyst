@@ -1,0 +1,50 @@
+package org.medaware.catalyst.service
+
+import jakarta.annotation.PostConstruct
+import org.medaware.catalyst.config.CatalystConfiguration
+import org.medaware.catalyst.exception.CatalystException
+import org.medaware.catalyst.persistence.model.MaintainerEntity
+import org.medaware.catalyst.persistence.repository.MaintainerRepository
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import org.springframework.stereotype.Service
+import java.time.Instant
+
+@Service
+class MaintainerService(
+    val maintainerRepository: MaintainerRepository,
+    val bCryptPasswordEncoder: BCryptPasswordEncoder,
+    val catalystConfiguration: CatalystConfiguration
+) {
+
+    @PostConstruct
+    fun createDefaultMaintainer() {
+        if (maintainerExists(catalystConfiguration.username))
+            return
+
+        createMaintainer(
+            "Default",
+            "Maintainer",
+            catalystConfiguration.username,
+            "System Administrator",
+            catalystConfiguration.password
+        )
+    }
+
+    fun maintainerExists(username: String): Boolean =
+        maintainerRepository.getMaintainerEntityByUsername(username) != null
+
+    fun createMaintainer(firstName: String, lastName: String, username: String, displayName: String, password: String) {
+        if (maintainerExists(username))
+            throw CatalystException("Username Taken", "The username \"${username}\" is already taken")
+
+        val entity = MaintainerEntity()
+        entity.firstName = firstName
+        entity.lastName = lastName
+        entity.username = username
+        entity.displayName = displayName
+        entity.passwordHash = bCryptPasswordEncoder.encode(password)
+        entity.createdAt = Instant.now()
+        maintainerRepository.save(entity)
+    }
+
+}
