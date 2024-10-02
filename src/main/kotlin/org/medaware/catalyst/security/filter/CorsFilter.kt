@@ -19,15 +19,16 @@ class CorsFilter : OncePerRequestFilter() {
         response: HttpServletResponse,
         filterChain: FilterChain
     ) {
+        response.setHeader("Access-Control-Allow-Origin", "*")
+        response.setHeader("Access-Control-Allow-Methods", "*")
+        response.setHeader("Access-Control-Allow-Headers", "*")
+        response.setHeader("Access-Control-Allow-Credentials", "true")
+
         if (request.method != "OPTIONS") {
             filterChain.doFilter(request, response)
             return
         }
 
-        response.setHeader("Access-Control-Allow-Origin", "*")
-        response.setHeader("Access-Control-Allow-Methods", "*")
-        response.setHeader("Access-Control-Allow-Headers", "*")
-        response.setHeader("Access-Control-Allow-Credentials", "true")
         response.status = HttpStatus.OK.value()
         return
     }

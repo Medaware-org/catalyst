@@ -43,13 +43,6 @@ paths:
             text/html:
               schema:
                 type: string
-        422:
-          description: Compilation failed with error
-          content:
-            text/plain:
-              schema:
-                type:
-                  string
 
   /tan/login:
     post:
@@ -70,12 +63,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/tangentialSessionResponse"
-        401:
-          description: Invalid credentials
-          content:
-            text/plain:
-              schema:
-                type: string
 
 
 components:
@@ -97,4 +84,15 @@ components:
         - token
       properties:
         token:
+          type: string
+
+    catalystError:
+      type: object
+      required:
+        - summary
+        - message
+      properties:
+        summary:
+          type: string
+        message:
           type: string
