@@ -13,6 +13,7 @@ class TangentialController(
 ) : TangentialApi {
 
     override fun tangentialLogin(tangentialLoginRequest: TangentialLoginRequest): ResponseEntity<TangentialSessionResponse> {
+        Thread.sleep(1000)
         return ResponseEntity.ok(maintainerService.login(tangentialLoginRequest).toDto())
     }
 
