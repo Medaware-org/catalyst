@@ -3,6 +3,8 @@ package org.medaware.catalyst.service
 import org.medaware.catalyst.persistence.model.MaintainerEntity
 import org.medaware.catalyst.persistence.model.SessionEntity
 import org.medaware.catalyst.persistence.repository.SessionRepository
+import org.medaware.catalyst.security.currentSession
+import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Service
 import java.security.SecureRandom
 import java.time.Instant
@@ -31,6 +33,12 @@ class SessionService(
             it.invalidated = true
             sessionRepository.save(it)
         }
+    }
+
+    fun invalidateCurrentSession() {
+        val session = currentSession()
+        session.invalidated = true
+        sessionRepository.save(session)
     }
 
     fun createSession(maintainer: MaintainerEntity): SessionEntity {

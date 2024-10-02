@@ -64,6 +64,16 @@ paths:
               schema:
                 $ref: "#/components/schemas/tangentialSessionResponse"
 
+  /tan/logout:
+    post:
+      operationId: tangentialLogout
+      summary: Invalidate the current user's session
+      tags:
+        - Tangential
+      responses:
+        200:
+          description: Logged out
+
 
 components:
   schemas:
