@@ -7,8 +7,12 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class StatusController : StatusApi {
 
+    companion object {
+        const val STATUS_MESSAGE = "Medaware Catalyst is up and running !"
+    }
+
     override fun catalystStatus(): ResponseEntity<String> {
-        return ResponseEntity.ok("Medaware Catalyst is up and running !")
+        return ResponseEntity.ok(STATUS_MESSAGE)
     }
 
 }

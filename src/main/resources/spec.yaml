@@ -24,6 +24,20 @@ paths:
               schema:
                 type: string
 
+  /secured:
+    get:
+      operationId: securedRoute
+      summary: A secured status route
+      tags:
+        - Security
+      responses:
+        200:
+          description: Medaware Catalyst is up and running
+          content:
+            text/plain:
+              schema:
+                type: string
+
   /antg/compile:
     post:
       operationId: compileAnterogradia
