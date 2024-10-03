@@ -9,4 +9,6 @@ interface ArticleRepository : JpaRepository<ArticleEntity, UUID> {
 
     fun getArticleEntitiesByMaintainer(maintainer: MaintainerEntity): List<ArticleEntity>
 
+    fun getArticleEntitiesByMaintainerId(maintainerId: UUID): List<ArticleEntity>
+
 }

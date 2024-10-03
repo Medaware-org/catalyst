@@ -88,12 +88,19 @@ paths:
         200:
           description: Logged out
 
-  /tan/articles/own:
+  /tan/articles/{selector}:
     get:
-      operationId: listOwnArticles
-      summary: Get a list of articles written by the currently logged-in user
+      operationId: listArticles
+      summary: Get a list of articles written by the specified selector
       tags:
         - Tangential
+      parameters:
+        - in: path
+          required: true
+          name: selector
+          description: Specifies the users whose articles should be listed; User ID for a specified user, 'current' for the currently logged-in user, or 'all' for no filtering
+          schema:
+            type: string
       responses:
         200:
           description: Articles returned
