@@ -63,7 +63,7 @@ paths:
       operationId: tangentialLogin
       summary: Log-in to the Tangential system
       tags:
-        - Tangential
+        - Tangential-Auth
       requestBody:
         required: true
         content:
@@ -83,7 +83,7 @@ paths:
       operationId: tangentialLogout
       summary: Invalidate the current user's session
       tags:
-        - Tangential
+        - Tangential-Auth
       responses:
         200:
           description: Logged out
@@ -93,7 +93,7 @@ paths:
       operationId: listArticles
       summary: Get a list of articles written by the specified selector
       tags:
-        - Tangential
+        - Tangential-Content
       parameters:
         - in: path
           required: true
