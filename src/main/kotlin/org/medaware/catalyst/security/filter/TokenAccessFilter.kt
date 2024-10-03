@@ -26,12 +26,15 @@ class TokenAccessFilter(
         filterChain: FilterChain
     ) {
 
-        val token: String? = request.getHeader("Authorization")
+        var token: String? = request.getHeader("Authorization")
 
         if (token == null) {
             response.sendUnauthorized()
             return
         }
+
+        if (token.startsWith("Bearer "))
+            token = token.split("Bearer ")[1]
 
         val session: SessionEntity =
             sessionService.getValidSession(token) ?: run {

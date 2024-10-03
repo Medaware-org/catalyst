@@ -88,6 +88,20 @@ paths:
         200:
           description: Logged out
 
+  /tan/articles/own:
+    get:
+      operationId: listOwnArticles
+      summary: Get a list of articles written by the currently logged-in user
+      tags:
+        - Tangential
+      responses:
+        200:
+          description: Articles returned
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/articleListing"
+
 
 components:
   schemas:
@@ -120,3 +134,26 @@ components:
           type: string
         message:
           type: string
+
+    articleListing:
+      type: array
+      items:
+        $ref: "#/components/schemas/articleResponse"
+
+    articleResponse:
+      type: object
+      required:
+        - author
+        - title
+        - date
+      properties:
+        author:
+          type: string
+        title:
+          type: string
+        date:
+          type: string
+          format: date
+        id:
+          type: string
+          format: uuid
