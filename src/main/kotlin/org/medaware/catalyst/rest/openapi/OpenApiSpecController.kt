@@ -1,4 +1,4 @@
-package org.medaware.catalyst.rest
+package org.medaware.catalyst.rest.openapi
 
 import org.springframework.core.io.ClassPathResource
 import org.springframework.core.io.ResourceLoader
