@@ -1,4 +1,4 @@
-package org.medaware.catalyst.rest
+package org.medaware.catalyst.rest.tangential
 
 import org.medaware.catalyst.api.TangentialAuthApi
 import org.medaware.catalyst.dto.TangentialLoginRequest

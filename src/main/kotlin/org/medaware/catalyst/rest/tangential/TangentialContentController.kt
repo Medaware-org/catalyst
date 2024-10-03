@@ -1,4 +1,4 @@
-package org.medaware.catalyst.rest
+package org.medaware.catalyst.rest.tangential
 
 import org.medaware.catalyst.api.TangentialContentApi
 import org.medaware.catalyst.dto.ArticleResponse
