@@ -15,7 +15,7 @@ import java.util.UUID
 class SequentialElementEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id")
     lateinit var id: UUID
 

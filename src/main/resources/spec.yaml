@@ -109,6 +109,26 @@ paths:
               schema:
                 $ref: "#/components/schemas/articleListing"
 
+  /tan/article:
+    post:
+      operationId: createArticle
+      summary: Create a new article
+      tags:
+        - Tangential-Content
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/articleCreationRequest"
+      responses:
+        200:
+          description: Article was created.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/articleResponse"
+
 
 components:
   schemas:
@@ -164,3 +184,11 @@ components:
         id:
           type: string
           format: uuid
+
+    articleCreationRequest:
+      type: object
+      required:
+        - title
+      properties:
+        title:
+          type: string

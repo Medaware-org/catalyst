@@ -1,5 +1,6 @@
 package org.medaware.catalyst.service
 
+import jakarta.transaction.Transactional
 import org.medaware.catalyst.persistence.model.MaintainerEntity
 import org.medaware.catalyst.persistence.model.SessionEntity
 import org.medaware.catalyst.persistence.repository.SessionRepository
@@ -11,6 +12,7 @@ import java.time.Instant
 import java.time.temporal.ChronoUnit
 import java.util.Base64
 
+@Transactional
 @Service
 class SessionService(
     val sessionRepository: SessionRepository

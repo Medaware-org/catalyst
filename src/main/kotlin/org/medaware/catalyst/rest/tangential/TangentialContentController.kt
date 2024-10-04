@@ -1,6 +1,7 @@
 package org.medaware.catalyst.rest.tangential
 
 import org.medaware.catalyst.api.TangentialContentApi
+import org.medaware.catalyst.dto.ArticleCreationRequest
 import org.medaware.catalyst.dto.ArticleResponse
 import org.medaware.catalyst.exception.CatalystException
 import org.medaware.catalyst.security.currentSession
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController
 import java.util.UUID
 
 @RestController
-class TangentialContentController (
+class TangentialContentController(
     val articleService: ArticleService
 ) : TangentialContentApi {
 
@@ -36,6 +37,10 @@ class TangentialContentController (
                 )
             }
         )
+    }
+
+    override fun createArticle(articleCreationRequest: ArticleCreationRequest): ResponseEntity<ArticleResponse> {
+        return ResponseEntity.ok(articleService.createArticle(articleCreationRequest.title))
     }
 
 }
