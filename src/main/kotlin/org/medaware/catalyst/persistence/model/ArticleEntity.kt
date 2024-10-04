@@ -32,6 +32,9 @@ class ArticleEntity {
     @Column(name = "created_at")
     lateinit var createdAt: Instant
 
+    @Column(name = "root_element")
+    lateinit var rootElement: UUID
+
     fun toDto(): ArticleResponse =
         ArticleResponse(
             author = maintainer.displayName,
