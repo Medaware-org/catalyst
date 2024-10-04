@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.Table
+import org.medaware.catalyst.dto.BasicMaintainerResponse
 import java.time.Instant
 import java.util.UUID
 
@@ -35,5 +36,8 @@ class MaintainerEntity {
 
     @Column(name = "created_at")
     lateinit var createdAt: Instant
+
+    fun toBasicDto(): BasicMaintainerResponse =
+        BasicMaintainerResponse(firstName, lastName, displayName)
 
 }

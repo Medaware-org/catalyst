@@ -24,20 +24,6 @@ paths:
               schema:
                 type: string
 
-  /secured:
-    get:
-      operationId: securedRoute
-      summary: A secured status route
-      tags:
-        - Security
-      responses:
-        200:
-          description: Medaware Catalyst is up and running
-          content:
-            text/plain:
-              schema:
-                type: string
-
   /antg/compile:
     post:
       operationId: compileAnterogradia
@@ -81,12 +67,26 @@ paths:
   /tan/logout:
     post:
       operationId: tangentialLogout
-      summary: Invalidate the current user's session
+      summary: Invalidate the current maintainer's session
       tags:
         - Tangential-Auth
       responses:
         200:
           description: Logged out
+
+  /tan/whoami:
+    get:
+      operationId: tangentialWhoAmI
+      summary: Return the current maintainer's basic info
+      tags:
+        - Tangential-Auth
+      responses:
+        200:
+          description: Basic maintainer details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/basicMaintainerResponse"
 
   /tan/articles/{selector}:
     get:
@@ -191,4 +191,18 @@ components:
         - title
       properties:
         title:
+          type: string
+
+    basicMaintainerResponse:
+      type: object
+      required:
+        - firstName
+        - lastName
+        - displayName
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        displayName:
           type: string

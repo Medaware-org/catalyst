@@ -8,6 +8,7 @@ import org.medaware.catalyst.exception.CatalystException
 import org.medaware.catalyst.persistence.model.MaintainerEntity
 import org.medaware.catalyst.persistence.model.SessionEntity
 import org.medaware.catalyst.persistence.repository.MaintainerRepository
+import org.medaware.catalyst.security.currentSession
 import org.springframework.http.HttpStatus
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
@@ -67,5 +68,7 @@ class MaintainerService(
     }
 
     fun login(request: TangentialLoginRequest) = login(request.username, request.password)
+
+    fun currentMaintainer() = currentSession().maintainer
 
 }

@@ -1,6 +1,7 @@
 package org.medaware.catalyst.rest.tangential
 
 import org.medaware.catalyst.api.TangentialAuthApi
+import org.medaware.catalyst.dto.BasicMaintainerResponse
 import org.medaware.catalyst.dto.TangentialLoginRequest
 import org.medaware.catalyst.dto.TangentialSessionResponse
 import org.medaware.catalyst.service.MaintainerService
@@ -24,4 +25,7 @@ class TangentialAuthController(
         return ResponseEntity.ok().build()
     }
 
+    override fun tangentialWhoAmI(): ResponseEntity<BasicMaintainerResponse> {
+        return ResponseEntity.ok(maintainerService.currentMaintainer().toBasicDto())
+    }
 }
