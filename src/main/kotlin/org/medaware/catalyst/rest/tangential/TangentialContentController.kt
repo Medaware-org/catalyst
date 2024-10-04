@@ -3,9 +3,13 @@ package org.medaware.catalyst.rest.tangential
 import org.medaware.catalyst.api.TangentialContentApi
 import org.medaware.catalyst.dto.ArticleCreationRequest
 import org.medaware.catalyst.dto.ArticleResponse
+import org.medaware.catalyst.dto.MetadataCreateRequest
+import org.medaware.catalyst.dto.MetadataEntry
 import org.medaware.catalyst.exception.CatalystException
 import org.medaware.catalyst.security.currentSession
 import org.medaware.catalyst.service.ArticleService
+import org.medaware.catalyst.service.MetadataService
+import org.medaware.catalyst.service.SequentialElementService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.RestController
@@ -13,7 +17,9 @@ import java.util.UUID
 
 @RestController
 class TangentialContentController(
-    val articleService: ArticleService
+    val articleService: ArticleService,
+    val metadataService: MetadataService,
+    val elementService: SequentialElementService
 ) : TangentialContentApi {
 
     override fun listArticles(selector: String): ResponseEntity<List<ArticleResponse>> {
@@ -43,4 +49,26 @@ class TangentialContentController(
         return ResponseEntity.ok(articleService.createArticle(articleCreationRequest.title))
     }
 
+    override fun getMetadata(elementId: UUID): ResponseEntity<List<MetadataEntry>> {
+        val element = elementService.getById(elementId) ?: throw CatalystException(
+            "Element Not Found",
+            "The element '${elementId}' does not exist.",
+            HttpStatus.NOT_FOUND
+        )
+
+        return ResponseEntity.ok(metadataService.getMetadataAsDtosOf(element))
+    }
+
+    override fun putMetadata(
+        elementId: UUID,
+        metadataCreateRequest: MetadataCreateRequest
+    ): ResponseEntity<MetadataEntry> {
+        val element = elementService.getById(elementId) ?: throw CatalystException(
+            "Element Not Found",
+            "The element '${elementId}' does not exist.",
+            HttpStatus.NOT_FOUND
+        )
+        val meta = metadataService.putMetaEntry(element, metadataCreateRequest.key, metadataCreateRequest.value)
+        return ResponseEntity.ok(meta.toDto())
+    }
 }

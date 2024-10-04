@@ -129,6 +129,54 @@ paths:
               schema:
                 $ref: "#/components/schemas/articleResponse"
 
+  /tan/metadata/{elementId}:
+    put:
+      operationId: putMetadata
+      summary: Put a metadata tag on a given sequential element
+      tags:
+        - Tangential-Content
+      parameters:
+        - in: path
+          name: elementId
+          description: ID of the host sequential element
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/metadataCreateRequest"
+      responses:
+        200:
+          description: Metadata element created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/metadataEntry"
+    get:
+      operationId: getMetadata
+      summary: Get all metadata of a given element
+      tags:
+        - Tangential-Content
+      parameters:
+        - in: path
+          name: elementId
+          description: ID of the host sequential element
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: Metadata entries of the given element
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/metadataListing"
+
 
 components:
   schemas:
@@ -206,3 +254,34 @@ components:
           type: string
         displayName:
           type: string
+
+    metadataCreateRequest:
+      type: object
+      required:
+        - key
+        - value
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+
+    metadataEntry:
+      type: object
+      required:
+        - key
+        - value
+        - id
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+        id:
+          type: string
+          format: uuid
+
+    metadataListing:
+      type: array
+      items:
+        $ref: "#/components/schemas/metadataEntry"
