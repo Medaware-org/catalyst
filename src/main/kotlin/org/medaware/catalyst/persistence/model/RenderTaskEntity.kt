@@ -36,5 +36,5 @@ class RenderTaskEntity {
 
     @Column(name = "created_at")
     lateinit var createdAt: Instant
-    
+
 }

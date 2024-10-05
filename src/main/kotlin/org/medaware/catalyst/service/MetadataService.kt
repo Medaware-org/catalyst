@@ -1,5 +1,6 @@
 package org.medaware.catalyst.service
 
+import jakarta.transaction.Transactional
 import org.medaware.catalyst.dto.MetadataEntry
 import org.medaware.catalyst.persistence.model.MetadataEntity
 import org.medaware.catalyst.persistence.model.SequentialElementEntity
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service
 import java.util.UUID
 
 @Service
+@Transactional
 class MetadataService(
     val metadataRepository: MetadataRepository
 ) {
