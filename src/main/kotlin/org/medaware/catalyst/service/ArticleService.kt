@@ -27,6 +27,8 @@ class ArticleService(
 
     fun getDtosOfAllArticles() = articleRepository.findAll().map { it.toDto() }
 
+    fun getArticleById(id: UUID): ArticleEntity? = articleRepository.getArticleEntityById(id)
+
     fun createArticle(title: String): ArticleResponse {
         val article = ArticleEntity()
         article.title = title

@@ -8,4 +8,6 @@ interface SequentialElementRepository : JpaRepository<SequentialElementEntity, U
 
     fun getSequentialElementEntityById(id: UUID): SequentialElementEntity?
 
+    fun getSequentialElementEntityByPrecedingElement(preceding: SequentialElementEntity): SequentialElementEntity?
+
 }
