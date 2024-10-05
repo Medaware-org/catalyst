@@ -25,7 +25,7 @@ repositories {
 
 dependencies {
     implementation("org.medaware:anterogradia:1.1.1")
-    implementation("org.medaware:anterogradia-avis:1.1.1")
+    implementation("org.medaware:anterogradia-avis:2.0.0")
 
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-security")
