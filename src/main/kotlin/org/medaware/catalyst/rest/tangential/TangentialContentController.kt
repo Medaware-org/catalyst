@@ -3,9 +3,12 @@ package org.medaware.catalyst.rest.tangential
 import org.medaware.catalyst.api.TangentialContentApi
 import org.medaware.catalyst.dto.ArticleCreationRequest
 import org.medaware.catalyst.dto.ArticleResponse
+import org.medaware.catalyst.dto.ElementInsertRequest
+import org.medaware.catalyst.dto.ElementResponse
 import org.medaware.catalyst.dto.MetadataCreateRequest
 import org.medaware.catalyst.dto.MetadataEntry
 import org.medaware.catalyst.exception.CatalystException
+import org.medaware.catalyst.persistence.model.ArticleEntity
 import org.medaware.catalyst.security.currentSession
 import org.medaware.catalyst.service.ArticleService
 import org.medaware.catalyst.service.MetadataService
@@ -74,13 +77,36 @@ class TangentialContentController(
         return ResponseEntity.ok(meta.toDto())
     }
 
-    override fun renderArticle(id: UUID): ResponseEntity<String> {
-        val article = articleService.getArticleById(id) ?: throw CatalystException(
+    private fun retrieveArticleById(id: UUID): ArticleEntity {
+        return articleService.getArticleById(id) ?: throw CatalystException(
             "Article Not Found",
             "The requested article '${id}' does not exist.",
             HttpStatus.NOT_FOUND
         )
+    }
 
+    override fun renderArticle(id: UUID): ResponseEntity<String> {
+        val article = retrieveArticleById(id)
+        return ResponseEntity.ok(renderTaskService.render(article).htmlResult)
+    }
+
+    override fun fetchArticle(id: UUID): ResponseEntity<String> {
+        val article = retrieveArticleById(id)
         return ResponseEntity.ok(renderTaskService.renderOrRetrieveFromCache(article).htmlResult)
+    }
+
+    override fun getArticleElements(id: UUID): ResponseEntity<List<ElementResponse>> {
+        val article = retrieveArticleById(id)
+        return ResponseEntity.ok(
+            elementService.findAllElementsOfArticle(article).map { it.toDto() })
+    }
+
+    override fun insertElement(elementInsertRequest: ElementInsertRequest): ResponseEntity<ElementResponse> {
+        return ResponseEntity.ok(
+            elementService.insertBlankElement(
+                elementInsertRequest.after,
+                elementInsertRequest.handle
+            ).toDto()
+        )
     }
 }

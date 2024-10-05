@@ -8,6 +8,7 @@ import jakarta.persistence.Id
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.ManyToOne
 import jakarta.persistence.Table
+import org.medaware.catalyst.dto.ElementResponse
 import java.util.UUID
 
 @Entity
@@ -25,5 +26,8 @@ class SequentialElementEntity {
     @ManyToOne
     @JoinColumn(name = "preceding_element")
     var precedingElement: SequentialElementEntity? = null
+
+    fun toDto() =
+        ElementResponse(id, handle)
 
 }

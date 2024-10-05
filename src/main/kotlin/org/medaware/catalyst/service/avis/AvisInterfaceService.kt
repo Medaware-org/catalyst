@@ -1,6 +1,7 @@
 package org.medaware.catalyst.service.avis
 
 import org.medaware.anterogradia.Anterogradia
+import org.medaware.anterogradia.rootCause
 import org.medaware.anterogradia.runtime.Runtime
 import org.medaware.avis.MedawareDesignKit
 import org.medaware.avis.model.AvisArticle
@@ -14,6 +15,7 @@ import org.medaware.catalyst.service.SequentialElementService
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
+import kotlin.math.log
 
 data class RenderResultObject(val antg: String, val html: String)
 
@@ -42,12 +44,17 @@ class AvisInterfaceService(
 
         var htmlResult: String =
             Anterogradia.invokeCompiler(antgSource, antgRuntime = runtime).use { input, output, except, dump ->
-                if (except != null)
+                if (except != null) {
+                    val rootCause = except.rootCause()
+                    logger.error("Could not render Anterogradia sources for article ${avisArticle.id} !!")
+                    logger.error(rootCause::class.simpleName + " :: " + rootCause.message)
+                    logger.error(input)
                     throw CatalystException(
                         "Rendering Error",
                         "Could not compile generated Anterogradia sources. This should not happen! Please contact the system administrator!",
                         HttpStatus.INTERNAL_SERVER_ERROR
                     )
+                }
                 return@use output
             }
 
@@ -57,12 +64,8 @@ class AvisInterfaceService(
     fun assembleArticle(article: ArticleEntity): AvisArticle {
         val elements = mutableListOf<AvisElement>()
 
-        var element: SequentialElementEntity? = elementService.getById(article.rootElement)
-
-        if (element == null) {
-            logger.warn("The Article \"${article.title}\" (${article.id}) does not have a root element. Is it meant to be this way?")
-            return AvisArticle(article.id, article.title, elements)
-        }
+        var element: SequentialElementEntity? =
+            elementService.getById(article.rootElement ?: return AvisArticle(article.id, article.title, listOf()))
 
         while (element != null) {
             elements.add(AvisElement(element.id, element.handle, collectMetadata(element)))

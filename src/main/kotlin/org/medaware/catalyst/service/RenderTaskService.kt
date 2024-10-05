@@ -40,6 +40,8 @@ class RenderTaskService(
     }
 
     fun render(article: ArticleEntity): RenderTaskEntity {
+        logger.info("Invoking renderer for article ${article.id} \"${article.title}\" by ${article.maintainer.displayName}")
+
         val avisArticle = avisInterfaceService.assembleArticle(article)
         val result = avisInterfaceService.render(avisArticle)
 

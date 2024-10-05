@@ -129,6 +129,50 @@ paths:
               schema:
                 $ref: "#/components/schemas/articleResponse"
 
+  /tan/elements/{id}:
+    get:
+      operationId: getArticleElements
+      summary: Get all elements making up a given article
+      tags:
+        - Tangential-Content
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID of the Article to get the elements from
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: All sequential elements of the given article
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/elementListing"
+
+  /tan/element:
+    post:
+      operationId: insertElement
+      summary: Insert a new element into the article
+      tags:
+        - Tangential-Content
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/elementInsertRequest"
+      responses:
+        200:
+          description: Element DTO
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/elementResponse"
+
+
+
   /tan/metadata/{elementId}:
     put:
       operationId: putMetadata
@@ -180,7 +224,7 @@ paths:
   /tan/render/{id}:
     post:
       operationId: renderArticle
-      summary: Invoke the rendering pipeline
+      summary: Forcefully invoke the rendering pipeline and append to cache
       tags:
         - Tangential-Content
       parameters:
@@ -190,6 +234,28 @@ paths:
             type: string
             format: uuid
           description: ID of the Article to render
+          required: true
+      responses:
+        200:
+          description: Rendered HTML
+          content:
+            text/html:
+              schema:
+                type: string
+
+  /tan/fetch/{id}:
+    post:
+      operationId: fetchArticle
+      summary: Retrieve the rendered HTML without forcefully re-rendering
+      tags:
+        - Tangential-Content
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+            format: uuid
+          description: ID of the Article
           required: true
       responses:
         200:
@@ -306,3 +372,32 @@ components:
       type: array
       items:
         $ref: "#/components/schemas/metadataEntry"
+
+    elementResponse:
+      type: object
+      required:
+        - id
+        - handle
+      properties:
+        id:
+          type: string
+          format: uuid
+        handle:
+          type: string
+
+    elementInsertRequest:
+      type: object
+      required:
+        - after
+        - handle
+      properties:
+        after:
+          type: string
+          format: uuid
+        handle:
+          type: string
+
+    elementListing:
+      type: array
+      items:
+        $ref: "#/components/schemas/elementResponse"

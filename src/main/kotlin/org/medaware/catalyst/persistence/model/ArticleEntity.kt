@@ -33,7 +33,7 @@ class ArticleEntity {
     lateinit var createdAt: Instant
 
     @Column(name = "root_element", nullable = true)
-    lateinit var rootElement: UUID
+    var rootElement: UUID? = null
 
     fun toDto(): ArticleResponse =
         ArticleResponse(
