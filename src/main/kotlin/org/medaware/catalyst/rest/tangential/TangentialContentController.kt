@@ -1,6 +1,5 @@
 package org.medaware.catalyst.rest.tangential
 
-import com.google.gson.GsonBuilder
 import org.medaware.catalyst.api.TangentialContentApi
 import org.medaware.catalyst.dto.ArticleCreationRequest
 import org.medaware.catalyst.dto.ArticleResponse
@@ -10,8 +9,8 @@ import org.medaware.catalyst.exception.CatalystException
 import org.medaware.catalyst.security.currentSession
 import org.medaware.catalyst.service.ArticleService
 import org.medaware.catalyst.service.MetadataService
+import org.medaware.catalyst.service.RenderTaskService
 import org.medaware.catalyst.service.SequentialElementService
-import org.medaware.catalyst.service.avis.AvisInterfaceService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.RestController
@@ -22,7 +21,7 @@ class TangentialContentController(
     val articleService: ArticleService,
     val metadataService: MetadataService,
     val elementService: SequentialElementService,
-    val avisInterfaceService: AvisInterfaceService
+    val renderTaskService: RenderTaskService
 ) : TangentialContentApi {
 
     override fun listArticles(selector: String): ResponseEntity<List<ArticleResponse>> {
@@ -75,18 +74,13 @@ class TangentialContentController(
         return ResponseEntity.ok(meta.toDto())
     }
 
-    /**
-     * ~ Just for testing purposes ~
-     * TODO Remove or change this
-     */
     override fun renderArticle(id: UUID): ResponseEntity<String> {
         val article = articleService.getArticleById(id) ?: throw CatalystException(
             "Article Not Found",
             "The requested article '${id}' does not exist.",
             HttpStatus.NOT_FOUND
         )
-        return ResponseEntity.ok(
-            GsonBuilder().setPrettyPrinting().create().toJson(avisInterfaceService.assembleArticle(article))
-        )
+
+        return ResponseEntity.ok(renderTaskService.renderOrRetrieveFromCache(article).htmlResult)
     }
 }

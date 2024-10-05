@@ -4,6 +4,7 @@ import jakarta.transaction.Transactional
 import org.medaware.catalyst.persistence.model.ArticleEntity
 import org.medaware.catalyst.persistence.model.RenderTaskEntity
 import org.medaware.catalyst.persistence.repository.RenderTaskRepository
+import org.medaware.catalyst.service.avis.AvisInterfaceService
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import java.time.Instant
@@ -11,7 +12,8 @@ import java.time.Instant
 @Service
 @Transactional
 class RenderTaskService(
-    val renderTaskRepository: RenderTaskRepository
+    val renderTaskRepository: RenderTaskRepository,
+    val avisInterfaceService: AvisInterfaceService
 ) {
 
     private val logger = LoggerFactory.getLogger(javaClass)
@@ -35,6 +37,23 @@ class RenderTaskService(
         entity.createdAt = Instant.now()
         renderTaskRepository.save(entity)
         return entity
+    }
+
+    fun render(article: ArticleEntity): RenderTaskEntity {
+        val avisArticle = avisInterfaceService.assembleArticle(article)
+        val result = avisInterfaceService.render(avisArticle)
+
+        return createRenderTask(article, result.antg, result.html)
+    }
+
+    fun renderOrRetrieveFromCache(article: ArticleEntity): RenderTaskEntity {
+        val cached = newestValidRenderTaskOrNull(article)
+
+        if (cached != null)
+            return cached
+
+        // Cache is invalid - Re-render the article
+        return render(article)
     }
 
     /**
