@@ -37,7 +37,7 @@ class ArticleService(
         articleRepository.save(article)
 
         // At this point, this article does not have a root element yet. So let's create one now.
-        val title = sequentialElementService.createSequentialElement("Title")
+        val title = sequentialElementService.insertBlankElement(article, null, "root")
 
         article.rootElement = title.id
         articleRepository.save(article)

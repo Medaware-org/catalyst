@@ -27,6 +27,10 @@ class SequentialElementEntity {
     @JoinColumn(name = "preceding_element")
     var precedingElement: SequentialElementEntity? = null
 
+    @ManyToOne
+    @JoinColumn(name = "article")
+    lateinit var article: ArticleEntity
+
     fun toDto() =
         ElementResponse(id, handle)
 

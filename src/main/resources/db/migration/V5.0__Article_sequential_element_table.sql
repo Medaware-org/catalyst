@@ -6,7 +6,10 @@ create table sequential_element
 
     preceding_element uuid,
 
-    primary key (id)
+    article           uuid not null,
+
+    primary key (id),
+    foreign key (article) references article (id)
 );
 
 alter table sequential_element

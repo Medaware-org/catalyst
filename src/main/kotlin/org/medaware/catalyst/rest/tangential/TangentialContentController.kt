@@ -102,8 +102,10 @@ class TangentialContentController(
     }
 
     override fun insertElement(elementInsertRequest: ElementInsertRequest): ResponseEntity<ElementResponse> {
+        val article = retrieveArticleById(elementInsertRequest.article)
         return ResponseEntity.ok(
             elementService.insertBlankElement(
+                article,
                 elementInsertRequest.after,
                 elementInsertRequest.handle
             ).toDto()

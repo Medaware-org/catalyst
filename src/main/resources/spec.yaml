@@ -388,9 +388,12 @@ components:
     elementInsertRequest:
       type: object
       required:
-        - after
+        - article
         - handle
       properties:
+        article:
+          type: string
+          format: uuid
         after:
           type: string
           format: uuid
