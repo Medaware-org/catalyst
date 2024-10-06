@@ -1,6 +1,7 @@
 package org.medaware.catalyst.rest.tangential
 
 import org.medaware.catalyst.api.TangentialContentApi
+import org.medaware.catalyst.dto.AlterElementRequest
 import org.medaware.catalyst.dto.ArticleCreationRequest
 import org.medaware.catalyst.dto.ArticleResponse
 import org.medaware.catalyst.dto.ElementInsertRequest
@@ -9,6 +10,7 @@ import org.medaware.catalyst.dto.MetadataCreateRequest
 import org.medaware.catalyst.dto.MetadataEntry
 import org.medaware.catalyst.exception.CatalystException
 import org.medaware.catalyst.persistence.model.ArticleEntity
+import org.medaware.catalyst.persistence.model.SequentialElementEntity
 import org.medaware.catalyst.security.currentSession
 import org.medaware.catalyst.service.ArticleService
 import org.medaware.catalyst.service.MetadataService
@@ -26,6 +28,23 @@ class TangentialContentController(
     val elementService: SequentialElementService,
     val renderTaskService: RenderTaskService
 ) : TangentialContentApi {
+
+    private fun retrieveElementById(id: UUID): SequentialElementEntity {
+        return elementService.getById(id) ?: throw CatalystException(
+            "Element Not Found",
+            "The element '$id' does not exist.",
+            HttpStatus.NOT_FOUND
+        )
+    }
+
+    private fun retrieveArticleById(id: UUID): ArticleEntity {
+        return articleService.getArticleById(id) ?: throw CatalystException(
+            "Article Not Found",
+            "The requested article '${id}' does not exist.",
+            HttpStatus.NOT_FOUND
+        )
+    }
+
 
     override fun listArticles(selector: String): ResponseEntity<List<ArticleResponse>> {
         val uuid = try {
@@ -55,12 +74,7 @@ class TangentialContentController(
     }
 
     override fun getMetadata(elementId: UUID): ResponseEntity<List<MetadataEntry>> {
-        val element = elementService.getById(elementId) ?: throw CatalystException(
-            "Element Not Found",
-            "The element '${elementId}' does not exist.",
-            HttpStatus.NOT_FOUND
-        )
-
+        val element = retrieveElementById(elementId)
         return ResponseEntity.ok(metadataService.getMetadataAsDtosOf(element))
     }
 
@@ -68,21 +82,9 @@ class TangentialContentController(
         elementId: UUID,
         metadataCreateRequest: MetadataCreateRequest
     ): ResponseEntity<MetadataEntry> {
-        val element = elementService.getById(elementId) ?: throw CatalystException(
-            "Element Not Found",
-            "The element '${elementId}' does not exist.",
-            HttpStatus.NOT_FOUND
-        )
+        val element = retrieveElementById(elementId)
         val meta = metadataService.putMetaEntry(element, metadataCreateRequest.key, metadataCreateRequest.value)
         return ResponseEntity.ok(meta.toDto())
-    }
-
-    private fun retrieveArticleById(id: UUID): ArticleEntity {
-        return articleService.getArticleById(id) ?: throw CatalystException(
-            "Article Not Found",
-            "The requested article '${id}' does not exist.",
-            HttpStatus.NOT_FOUND
-        )
     }
 
     override fun renderArticle(id: UUID): ResponseEntity<String> {
@@ -110,5 +112,14 @@ class TangentialContentController(
                 elementInsertRequest.handle
             ).toDto()
         )
+    }
+
+    override fun alterElement(
+        id: UUID,
+        alterElementRequest: AlterElementRequest
+    ): ResponseEntity<Unit> {
+        val element = retrieveElementById(id)
+        elementService.switchElementToType(element, alterElementRequest.type)
+        return ResponseEntity.ok().build()
     }
 }

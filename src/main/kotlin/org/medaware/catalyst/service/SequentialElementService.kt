@@ -1,7 +1,9 @@
 package org.medaware.catalyst.service
 
 import jakarta.transaction.Transactional
+import org.medaware.anterogradia.rootCause
 import org.medaware.avis.AvisMeta
+import org.medaware.avis.exception.AvisValidationException
 import org.medaware.catalyst.exception.CatalystException
 import org.medaware.catalyst.persistence.model.ArticleEntity
 import org.medaware.catalyst.persistence.model.SequentialElementEntity
@@ -107,6 +109,43 @@ class SequentialElementService(
         }
 
         return elements
+    }
+
+    /**
+     * Removes all metadata from the given elements and inserts metas for the requested type
+     */
+    fun switchElementToType(element: SequentialElementEntity, type: String) {
+        val upperType = type.uppercase()
+
+        val exception = AvisMeta.validateMetaEntry(upperType, AvisMeta.ELEMENT_TYPE.toString() to upperType)
+
+        if (exception != null)
+            throw CatalystException(
+                "Metadata Validation Failed",
+                exception.rootCause().message ?: "No further details",
+                HttpStatus.UNPROCESSABLE_ENTITY
+            )
+
+        metadataService.dropAllMetaOf(element)
+
+        metadataService.putMetaEntry(element, AvisMeta.ELEMENT_TYPE.toString(), upperType)
+
+        try {
+            AvisMeta.use(AvisMeta.ELEMENT_TYPE.toString(), type) { meta, requirements ->
+                requirements.forEach {
+                    val meta = AvisMeta.byNameOrNull(it) ?: throw CatalystException(
+                        "Unknown Requirement",
+                        "Could not find the required meta entry '${
+                            it.toString().uppercase()
+                        }' for element type '${type}'",
+                        HttpStatus.NOT_FOUND
+                    )
+                    metadataService.putMetaEntry(element, meta.toString().uppercase(), meta.defaultValue() ?: "")
+                }
+            }
+        } catch (e: AvisValidationException) {
+            throw CatalystException("AVIS Validation Failed", e.message, HttpStatus.UNPROCESSABLE_ENTITY)
+        }
     }
 
 }

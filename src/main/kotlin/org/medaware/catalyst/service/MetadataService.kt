@@ -34,4 +34,7 @@ class MetadataService(
     fun getMetadataAsDtosOf(element: SequentialElementEntity): List<MetadataEntry> =
         getMetadataOf(element).map { MetadataEntry(it.key, it.value, it.id) }
 
+    fun dropAllMetaOf(element: SequentialElementEntity) =
+        metadataRepository.deleteAll(getMetadataOf(element))
+
 }

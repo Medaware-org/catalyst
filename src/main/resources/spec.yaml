@@ -171,7 +171,33 @@ paths:
               schema:
                 $ref: "#/components/schemas/elementResponse"
 
-
+  /tan/alter/{id}:
+    post:
+      operationId: alterElement
+      summary: Switch the element to a different type
+      tags:
+        - Tangential-Content
+      parameters:
+        - in: path
+          name: id
+          description: Element ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+                - type
+              properties:
+                type:
+                  type: string
+      responses:
+        200:
+          description: Switched element type
 
   /tan/metadata/{elementId}:
     put:
