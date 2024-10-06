@@ -6,6 +6,8 @@ import java.util.UUID
 
 interface MaintainerRepository : JpaRepository<MaintainerEntity, UUID> {
 
+    fun getMaintainerEntityById(id: UUID): MaintainerEntity?
+
     fun getMaintainerEntityByUsername(username: String): MaintainerEntity?
 
 }

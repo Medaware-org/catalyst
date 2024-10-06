@@ -3,6 +3,7 @@ package org.medaware.catalyst.service
 import jakarta.annotation.PostConstruct
 import jakarta.transaction.Transactional
 import org.medaware.catalyst.config.CatalystConfiguration
+import org.medaware.catalyst.dto.AccountUpdateRequest
 import org.medaware.catalyst.dto.TangentialLoginRequest
 import org.medaware.catalyst.exception.CatalystException
 import org.medaware.catalyst.persistence.model.MaintainerEntity
@@ -13,6 +14,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 import java.time.Instant
+import java.util.UUID
 
 @Service
 @Transactional
@@ -22,6 +24,9 @@ class MaintainerService(
     val catalystConfiguration: CatalystConfiguration,
     val sessionService: SessionService
 ) {
+
+    fun byId(id: UUID): MaintainerEntity? =
+        maintainerRepository.getMaintainerEntityById(id)
 
     @PostConstruct
     fun createDefaultMaintainer() {
@@ -42,7 +47,11 @@ class MaintainerService(
 
     fun createMaintainer(firstName: String, lastName: String, username: String, displayName: String, password: String) {
         if (maintainerExists(username))
-            throw CatalystException("Username Taken", "The username \"${username}\" is already taken", HttpStatus.CONFLICT)
+            throw CatalystException(
+                "Username Taken",
+                "The username \"${username}\" is already taken",
+                HttpStatus.CONFLICT
+            )
 
         val entity = MaintainerEntity()
         entity.firstName = firstName
@@ -70,5 +79,18 @@ class MaintainerService(
     fun login(request: TangentialLoginRequest) = login(request.username, request.password)
 
     fun currentMaintainer() = currentSession().maintainer
+
+    fun updateAccountDetails(maintainer: MaintainerEntity, update: AccountUpdateRequest) {
+        if (update.firstName != null)
+            maintainer.firstName = update.firstName
+
+        if (update.lastName != null)
+            maintainer.lastName = update.lastName
+
+        if (update.displayName != null)
+            maintainer.displayName = update.displayName
+
+        maintainerRepository.save(maintainer)
+    }
 
 }
