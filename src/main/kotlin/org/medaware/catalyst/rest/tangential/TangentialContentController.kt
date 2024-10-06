@@ -114,12 +114,9 @@ class TangentialContentController(
             ).toDto()
         )
     }
-
-    override fun alterElement(
-        id: UUID,
-        alterElementRequest: AlterElementRequest
-    ): ResponseEntity<Unit> {
-        val element = retrieveElementById(id)
+    
+    override fun alterElement(alterElementRequest: AlterElementRequest): ResponseEntity<Unit> {
+        val element = retrieveElementById(alterElementRequest.id)
         elementService.switchElementToType(element, alterElementRequest.type)
         return ResponseEntity.ok().build()
     }
