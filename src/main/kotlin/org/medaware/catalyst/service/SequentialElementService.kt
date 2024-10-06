@@ -148,4 +148,22 @@ class SequentialElementService(
         }
     }
 
+    fun deleteElement(element: SequentialElementEntity) {
+        val preceding = element.precedingElement ?: throw CatalystException(
+            "Inappropriate Deletion",
+            "The root element of an article cannot be deleted",
+            HttpStatus.CONFLICT
+        )
+
+        val following = findNext(element)
+
+        // If there is a following element, "re-wire" it to the preceding entry
+        if (following != null) {
+            following.precedingElement = preceding
+            sequentialElementRepository.save(following)
+        }
+
+        sequentialElementRepository.delete(element)
+    }
+
 }

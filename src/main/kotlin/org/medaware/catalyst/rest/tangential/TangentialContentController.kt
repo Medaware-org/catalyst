@@ -4,6 +4,7 @@ import org.medaware.catalyst.api.TangentialContentApi
 import org.medaware.catalyst.dto.AlterElementRequest
 import org.medaware.catalyst.dto.ArticleCreationRequest
 import org.medaware.catalyst.dto.ArticleResponse
+import org.medaware.catalyst.dto.DeleteElementRequest
 import org.medaware.catalyst.dto.ElementInsertRequest
 import org.medaware.catalyst.dto.ElementResponse
 import org.medaware.catalyst.dto.MetadataCreateRequest
@@ -120,6 +121,13 @@ class TangentialContentController(
     ): ResponseEntity<Unit> {
         val element = retrieveElementById(id)
         elementService.switchElementToType(element, alterElementRequest.type)
+        return ResponseEntity.ok().build()
+    }
+
+    override fun deleteElement(deleteElementRequest: DeleteElementRequest): ResponseEntity<Unit> {
+        val element = retrieveElementById(deleteElementRequest.id)
+        metadataService.dropAllMetaOf(element)
+        elementService.deleteElement(element)
         return ResponseEntity.ok().build()
     }
 }
