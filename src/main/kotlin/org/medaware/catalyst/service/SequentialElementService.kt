@@ -27,6 +27,9 @@ class SequentialElementService(
     fun getByArticleAndId(article: ArticleEntity, id: UUID): SequentialElementEntity? =
         sequentialElementRepository.getSequentialElementEntityByArticleAndId(article, id)
 
+    fun getByArticle(article: ArticleEntity): List<SequentialElementEntity> =
+        sequentialElementRepository.getSequentialElementEntitiesByArticle(article)
+
     fun getByArticleAndHandle(article: ArticleEntity, handle: String): SequentialElementEntity? =
         sequentialElementRepository.getSequentialElementEntityByArticleAndHandle(article, handle)
 
@@ -162,6 +165,8 @@ class SequentialElementService(
             following.precedingElement = preceding
             sequentialElementRepository.save(following)
         }
+
+        metadataService.dropAllMetaOf(element)
 
         sequentialElementRepository.delete(element)
     }

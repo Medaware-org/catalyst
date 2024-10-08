@@ -14,7 +14,8 @@ import java.util.UUID
 @Transactional
 class ArticleService(
     val articleRepository: ArticleRepository,
-    val sequentialElementService: SequentialElementService
+    val sequentialElementService: SequentialElementService,
+    val renderTaskService: RenderTaskService
 ) {
 
     fun getArticlesBy(maintainer: MaintainerEntity): List<ArticleEntity> =
@@ -45,11 +46,17 @@ class ArticleService(
         return article.toDto()
     }
 
+    fun detachRoot(article: ArticleEntity) {
+        article.rootElement = null
+        articleRepository.save(article)
+    }
+
     fun deleteArticle(article: ArticleEntity) {
         val elements = sequentialElementService.findAllElementsOfArticle(article)
-        elements.forEach {
-            sequentialElementService.deleteElement(it, allowRootDeletion = true)
-        }
+        renderTaskService.removeAllOf(article)
+        detachRoot(article)
+        for (element in elements.reversed())
+            sequentialElementService.deleteElement(element, allowRootDeletion = true)
         articleRepository.delete(article)
     }
 

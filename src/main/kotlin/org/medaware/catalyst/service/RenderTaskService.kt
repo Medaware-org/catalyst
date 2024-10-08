@@ -69,4 +69,8 @@ class RenderTaskService(
 
     fun getAllTasksOf(article: ArticleEntity): List<RenderTaskEntity> = renderTaskRepository.getAllByArticle(article)
 
+    fun removeAllOf(article: ArticleEntity) {
+        renderTaskRepository.deleteAll(getAllTasksOf(article))
+    }
+
 }

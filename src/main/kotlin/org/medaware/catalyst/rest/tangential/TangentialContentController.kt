@@ -124,7 +124,6 @@ class TangentialContentController(
 
     override fun deleteElement(deleteElementRequest: DeleteElementRequest): ResponseEntity<Unit> {
         val element = retrieveElementById(deleteElementRequest.id)
-        metadataService.dropAllMetaOf(element)
         elementService.deleteElement(element)
         return ResponseEntity.ok().build()
     }
