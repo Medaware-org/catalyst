@@ -144,6 +144,20 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/articleResponse"
+    delete:
+      operationId: deleteArticle
+      summary: Delete an existing article
+      tags:
+        - Tangential-Content
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/deleteArticleRequest"
+      responses:
+        200:
+          description: Article removed
 
   /tan/elements/{id}:
     get:
@@ -469,3 +483,12 @@ components:
           type: string
         displayName:
           type: string
+
+    deleteArticleRequest:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: string
+          format: uuid

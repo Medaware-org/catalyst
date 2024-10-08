@@ -45,4 +45,12 @@ class ArticleService(
         return article.toDto()
     }
 
+    fun deleteArticle(article: ArticleEntity) {
+        val elements = sequentialElementService.findAllElementsOfArticle(article)
+        elements.forEach {
+            sequentialElementService.deleteElement(it, allowRootDeletion = true)
+        }
+        articleRepository.delete(article)
+    }
+
 }
