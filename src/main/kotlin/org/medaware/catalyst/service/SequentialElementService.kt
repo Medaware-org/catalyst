@@ -1,6 +1,5 @@
 package org.medaware.catalyst.service
 
-import jakarta.transaction.Transactional
 import org.medaware.anterogradia.rootCause
 import org.medaware.avis.AvisMeta
 import org.medaware.avis.exception.AvisValidationException
@@ -11,10 +10,12 @@ import org.medaware.catalyst.persistence.repository.ArticleRepository
 import org.medaware.catalyst.persistence.repository.SequentialElementRepository
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Propagation
+import org.springframework.transaction.annotation.Transactional
 import java.util.UUID
 
 @Service
-@Transactional
+@Transactional(propagation = Propagation.REQUIRED)
 class SequentialElementService(
     val sequentialElementRepository: SequentialElementRepository,
     val metadataService: MetadataService,

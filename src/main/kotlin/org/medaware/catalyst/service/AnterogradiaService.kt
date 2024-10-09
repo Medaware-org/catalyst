@@ -1,17 +1,12 @@
 package org.medaware.catalyst.service
 
 import jakarta.annotation.PostConstruct
-import jakarta.transaction.Transactional
 import org.medaware.anterogradia.Anterogradia
 import org.medaware.anterogradia.runtime.Runtime
 import org.medaware.avis.MedawareDesignKit
-import org.medaware.catalyst.persistence.model.MaintainerEntity
-import org.medaware.catalyst.persistence.repository.MaintainerRepository
 import org.springframework.stereotype.Service
-import java.time.Instant
 
 @Service
-@Transactional
 class AnterogradiaService {
 
     @PostConstruct

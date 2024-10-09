@@ -1,18 +1,18 @@
 package org.medaware.catalyst.service
 
-import jakarta.transaction.Transactional
 import org.medaware.catalyst.persistence.model.MaintainerEntity
 import org.medaware.catalyst.persistence.model.SessionEntity
 import org.medaware.catalyst.persistence.repository.SessionRepository
 import org.medaware.catalyst.security.currentSession
-import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Propagation
+import org.springframework.transaction.annotation.Transactional
 import java.security.SecureRandom
 import java.time.Instant
 import java.time.temporal.ChronoUnit
 import java.util.Base64
 
-@Transactional
+@Transactional(propagation = Propagation.REQUIRED)
 @Service
 class SessionService(
     val sessionRepository: SessionRepository

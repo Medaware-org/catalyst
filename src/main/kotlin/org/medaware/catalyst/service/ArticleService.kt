@@ -1,17 +1,18 @@
 package org.medaware.catalyst.service
 
-import jakarta.transaction.Transactional
 import org.medaware.catalyst.dto.ArticleResponse
 import org.medaware.catalyst.persistence.model.ArticleEntity
 import org.medaware.catalyst.persistence.model.MaintainerEntity
 import org.medaware.catalyst.persistence.repository.ArticleRepository
 import org.medaware.catalyst.security.currentSession
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Propagation
+import org.springframework.transaction.annotation.Transactional
 import java.time.Instant
 import java.util.UUID
 
 @Service
-@Transactional
+@Transactional(propagation = Propagation.REQUIRED)
 class ArticleService(
     val articleRepository: ArticleRepository,
     val sequentialElementService: SequentialElementService,
@@ -52,11 +53,19 @@ class ArticleService(
     }
 
     fun deleteArticle(article: ArticleEntity) {
-        val elements = sequentialElementService.findAllElementsOfArticle(article)
-        renderTaskService.removeAllOf(article)
-        detachRoot(article)
+        var tmpArticle = article
+
+        val elements = sequentialElementService.findAllElementsOfArticle(tmpArticle)
+        renderTaskService.removeAllOf(tmpArticle)
+        detachRoot(tmpArticle)
+
+        // The individual transactions seem to be getting out-of-sync. This is a temporary work-around.
+        // TODO Find and resolve the underlying issue
+        getArticleById(article.id)
+
         for (element in elements.reversed())
             sequentialElementService.deleteElement(element, allowRootDeletion = true)
+
         articleRepository.delete(article)
     }
 

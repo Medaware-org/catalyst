@@ -1,16 +1,17 @@
 package org.medaware.catalyst.service
 
-import jakarta.transaction.Transactional
 import org.medaware.catalyst.persistence.model.ArticleEntity
 import org.medaware.catalyst.persistence.model.RenderTaskEntity
 import org.medaware.catalyst.persistence.repository.RenderTaskRepository
 import org.medaware.catalyst.service.avis.AvisInterfaceService
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Propagation
+import org.springframework.transaction.annotation.Transactional
 import java.time.Instant
 
 @Service
-@Transactional
+@Transactional(propagation = Propagation.REQUIRED)
 class RenderTaskService(
     val renderTaskRepository: RenderTaskRepository,
     val avisInterfaceService: AvisInterfaceService

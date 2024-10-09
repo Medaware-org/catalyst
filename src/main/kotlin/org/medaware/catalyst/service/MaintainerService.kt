@@ -1,7 +1,6 @@
 package org.medaware.catalyst.service
 
 import jakarta.annotation.PostConstruct
-import jakarta.transaction.Transactional
 import org.medaware.catalyst.config.CatalystConfiguration
 import org.medaware.catalyst.dto.AccountUpdateRequest
 import org.medaware.catalyst.dto.TangentialLoginRequest
@@ -13,11 +12,13 @@ import org.medaware.catalyst.security.currentSession
 import org.springframework.http.HttpStatus
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Propagation
+import org.springframework.transaction.annotation.Transactional
 import java.time.Instant
 import java.util.UUID
 
 @Service
-@Transactional
+@Transactional(propagation = Propagation.REQUIRED)
 class MaintainerService(
     val maintainerRepository: MaintainerRepository,
     val bCryptPasswordEncoder: BCryptPasswordEncoder,
