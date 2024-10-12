@@ -1,5 +1,7 @@
 package org.medaware.catalyst.service
 
+import org.medaware.avis.AvisMeta
+import org.medaware.catalyst.dto.ElementTypeRequirement
 import org.medaware.catalyst.dto.MetadataEntry
 import org.medaware.catalyst.persistence.model.MetadataEntity
 import org.medaware.catalyst.persistence.model.SequentialElementEntity
@@ -47,5 +49,15 @@ class MetadataService(
 
     fun dropAllMetaOf(element: SequentialElementEntity) =
         metadataRepository.deleteAll(getMetadataOf(element))
+
+    fun getAvailableElementTypesAndMetaRequirements(): List<ElementTypeRequirement> {
+        val requirements = mutableListOf<ElementTypeRequirement>()
+        AvisMeta.ELEMENT_TYPE.valueConstraints!!.forEach {
+            AvisMeta.use(AvisMeta.ELEMENT_TYPE.toString(), it) { meta, required ->
+                requirements.add(ElementTypeRequirement(it, required.asList()))
+            }
+        }
+        return requirements
+    }
 
 }

@@ -256,6 +256,23 @@ paths:
         200:
           description: Switched element type
 
+  /tan/aux/types:
+    get:
+      operationId: getElementTypes
+      summary: Get a list of all the possible element types alongside their requirements
+      tags:
+        - Tangential-Auxiliary
+      responses:
+        200:
+          description: Element types
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/elementTypeRequirement"
+
+
   /tan/metadata/{elementId}:
     put:
       operationId: putMetadata
@@ -508,3 +525,16 @@ components:
         id:
           type: string
           format: uuid
+
+    elementTypeRequirement:
+      type: object
+      required:
+        - type
+        - requirements
+      properties:
+        type:
+          type: string
+        requirements:
+          type: array
+          items:
+            type: string

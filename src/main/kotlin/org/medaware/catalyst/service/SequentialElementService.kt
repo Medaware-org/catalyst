@@ -3,6 +3,7 @@ package org.medaware.catalyst.service
 import org.medaware.anterogradia.rootCause
 import org.medaware.avis.AvisMeta
 import org.medaware.avis.exception.AvisValidationException
+import org.medaware.catalyst.capitalized
 import org.medaware.catalyst.exception.CatalystException
 import org.medaware.catalyst.persistence.model.ArticleEntity
 import org.medaware.catalyst.persistence.model.SequentialElementEntity
@@ -136,25 +137,11 @@ class SequentialElementService(
         return elements
     }
 
-    /**
-     * Removes all metadata from the given elements and inserts metas for the requested type
-     */
-    fun switchElementToType(element: SequentialElementEntity, type: String) {
-        val upperType = type.uppercase()
-
-        val exception = AvisMeta.validateMetaEntry(upperType, AvisMeta.ELEMENT_TYPE.toString() to upperType)
-
-        if (exception != null)
-            throw CatalystException(
-                "Metadata Validation Failed",
-                exception.rootCause().message ?: "No further details",
-                HttpStatus.UNPROCESSABLE_ENTITY
-            )
-
-        metadataService.dropAllMetaOf(element)
-
-        metadataService.putMetaEntry(element, AvisMeta.ELEMENT_TYPE.toString(), upperType)
-
+    fun putElementTypeAndRequiredMetas(element: SequentialElementEntity, type: String, substituteAll: Boolean = false) {
+        if (substituteAll) {
+            metadataService.dropAllMetaOf(element)
+            metadataService.putMetaEntry(element, AvisMeta.ELEMENT_TYPE.toString(), type.uppercase())
+        }
         try {
             AvisMeta.use(AvisMeta.ELEMENT_TYPE.toString(), type) { meta, requirements ->
                 requirements.forEach {
@@ -171,6 +158,28 @@ class SequentialElementService(
         } catch (e: AvisValidationException) {
             throw CatalystException("AVIS Validation Failed", e.message, HttpStatus.UNPROCESSABLE_ENTITY)
         }
+    }
+
+    fun getAvailableElementTypes(): Array<String> {
+        return AvisMeta.ELEMENT_TYPE.valueConstraints!!
+    }
+
+    /**
+     * Removes all metadata from the given elements and inserts metas for the requested type
+     */
+    fun switchElementToType(element: SequentialElementEntity, type: String) {
+        val upperType = type.uppercase()
+
+        val exception = AvisMeta.validateMetaEntry(upperType, AvisMeta.ELEMENT_TYPE.toString() to upperType)
+
+        if (exception != null)
+            throw CatalystException(
+                "Metadata Validation Failed",
+                exception.rootCause().message ?: "No further details",
+                HttpStatus.UNPROCESSABLE_ENTITY
+            )
+
+        putElementTypeAndRequiredMetas(element, type, substituteAll = true)
     }
 
 
