@@ -9,4 +9,6 @@ interface MetadataRepository : JpaRepository<MetadataEntity, UUID> {
 
     fun getMetadataEntitiesByElement(element: SequentialElementEntity): List<MetadataEntity>
 
+    fun getMetadataEntityByKeyAndElement(key: String, element: SequentialElementEntity): MetadataEntity?
+
 }

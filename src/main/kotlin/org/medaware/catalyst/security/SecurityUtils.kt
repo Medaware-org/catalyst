@@ -6,3 +6,5 @@ import org.springframework.security.core.context.SecurityContextHolder
 
 fun currentSession(): SessionEntity =
     (SecurityContextHolder.getContext().authentication as CatalystAuthentication).sessionEntity
+
+fun isAuthenticated(): Boolean = SecurityContextHolder.getContext().authentication is CatalystAuthentication

@@ -10,12 +10,10 @@ import org.medaware.catalyst.persistence.repository.ArticleRepository
 import org.medaware.catalyst.persistence.repository.SequentialElementRepository
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
-import org.springframework.transaction.annotation.Propagation
-import org.springframework.transaction.annotation.Transactional
 import java.util.UUID
 
 @Service
-@Transactional(propagation = Propagation.REQUIRED)
+
 class SequentialElementService(
     val sequentialElementRepository: SequentialElementRepository,
     val metadataService: MetadataService,
@@ -33,6 +31,10 @@ class SequentialElementService(
 
     fun getByArticleAndHandle(article: ArticleEntity, handle: String): SequentialElementEntity? =
         sequentialElementRepository.getSequentialElementEntityByArticleAndHandle(article, handle)
+
+    fun putMeta(element: SequentialElementEntity, meta: Pair<String, String>) {
+        metadataService.putMetaEntry(element, meta.first, meta.second)
+    }
 
     fun createSequentialElement(
         article: ArticleEntity,
@@ -82,7 +84,24 @@ class SequentialElementService(
         return seq
     }
 
-    fun insertBlankElement(article: ArticleEntity, after: UUID?, handle: String): SequentialElementEntity {
+    private fun createTypedSequentialElement(
+        article: ArticleEntity,
+        handle: String,
+        preceding: SequentialElementEntity?,
+        type: String
+    ): SequentialElementEntity {
+        val element = createSequentialElement(article, handle, preceding)
+        putMeta(element, AvisMeta.ELEMENT_TYPE.toString() to type)
+        return element
+    }
+
+    fun insertElement(
+        article: ArticleEntity,
+        after: UUID?,
+        handle: String,
+        type: String = "BLANK_PLACEHOLDER",
+        meta: Array<Pair<String, String>> = arrayOf()
+    ): SequentialElementEntity {
         val preceding: SequentialElementEntity? = if (after == null) null else getByArticleAndId(article, after)
 
         if (after != null && preceding == null)
@@ -92,9 +111,11 @@ class SequentialElementService(
                 HttpStatus.NOT_FOUND
             )
 
-        val element = createSequentialElement(article, handle, preceding)
+        val element = createTypedSequentialElement(article, handle, preceding, type)
 
-        metadataService.putMetaEntry(element, AvisMeta.ELEMENT_TYPE.toString(), "BLANK_PLACEHOLDER")
+        meta.forEach {
+            metadataService.putMetaEntry(element, it.first, it.second)
+        }
 
         return element
     }
@@ -151,6 +172,7 @@ class SequentialElementService(
             throw CatalystException("AVIS Validation Failed", e.message, HttpStatus.UNPROCESSABLE_ENTITY)
         }
     }
+
 
     fun deleteElement(element: SequentialElementEntity, allowRootDeletion: Boolean = false) {
         val preceding = element.precedingElement ?: (if (!allowRootDeletion) throw CatalystException(

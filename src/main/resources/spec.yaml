@@ -24,6 +24,20 @@ paths:
               schema:
                 type: string
 
+  /avis/css:
+    get:
+      operationId: retrieveAvisCss
+      summary: Get the CSS string from AVIS
+      tags:
+        - AVIS
+      responses:
+        200:
+          description: CSS
+          content:
+            text/css:
+              schema:
+                type: string
+
   /antg/compile:
     post:
       operationId: compileAnterogradia
@@ -467,6 +481,8 @@ components:
           type: string
           format: uuid
         handle:
+          type: string
+        type:
           type: string
 
     elementListing:

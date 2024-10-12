@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional
 import java.time.Instant
 
 @Service
-@Transactional(propagation = Propagation.REQUIRED)
+
 class RenderTaskService(
     val renderTaskRepository: RenderTaskRepository,
     val avisInterfaceService: AvisInterfaceService
@@ -29,6 +29,7 @@ class RenderTaskService(
             return@let it
         }
 
+    
     fun createRenderTask(article: ArticleEntity, antgResult: String, htmlResult: String): RenderTaskEntity {
         val entity = RenderTaskEntity()
         entity.article = article
@@ -62,6 +63,7 @@ class RenderTaskService(
     /**
      * Invalidates the newest render result for a given article, and thus the article's entire render cache
      */
+    
     fun invalidateCache(article: ArticleEntity) {
         val task = newestValidRenderTaskOrNull(article) ?: return
         task.invalidated = true
@@ -70,8 +72,10 @@ class RenderTaskService(
 
     fun getAllTasksOf(article: ArticleEntity): List<RenderTaskEntity> = renderTaskRepository.getAllByArticle(article)
 
+    
     fun removeAllOf(article: ArticleEntity) {
         renderTaskRepository.deleteAll(getAllTasksOf(article))
     }
+
 
 }

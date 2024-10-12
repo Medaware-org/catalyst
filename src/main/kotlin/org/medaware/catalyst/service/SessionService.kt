@@ -12,7 +12,7 @@ import java.time.Instant
 import java.time.temporal.ChronoUnit
 import java.util.Base64
 
-@Transactional(propagation = Propagation.REQUIRED)
+
 @Service
 class SessionService(
     val sessionRepository: SessionRepository

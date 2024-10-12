@@ -23,7 +23,7 @@ class TokenAccessFilterChainConfig(
         http {
             csrf { disable() }
             securityMatcher("**")
-            authorizeHttpRequests {
+            authorizeRequests {
                 authorize(anyRequest, permitAll)
             }
             addFilterBefore<UsernamePasswordAuthenticationFilter>(TokenAccessFilter(sessionService))

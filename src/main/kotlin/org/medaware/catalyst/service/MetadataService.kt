@@ -5,17 +5,18 @@ import org.medaware.catalyst.persistence.model.MetadataEntity
 import org.medaware.catalyst.persistence.model.SequentialElementEntity
 import org.medaware.catalyst.persistence.repository.MetadataRepository
 import org.springframework.stereotype.Service
-import org.springframework.transaction.annotation.Propagation
-import org.springframework.transaction.annotation.Transactional
 import java.util.UUID
 
 @Service
-@Transactional(propagation = Propagation.REQUIRED)
+
 class MetadataService(
     val metadataRepository: MetadataRepository
 ) {
 
     fun getById(id: UUID) = metadataRepository.findById(id)
+
+    fun getByKeyAndElement(key: String, element: SequentialElementEntity) =
+        metadataRepository.getMetadataEntityByKeyAndElement(key, element)
 
     fun getMetadataOf(element: SequentialElementEntity): List<MetadataEntity> =
         metadataRepository.getMetadataEntitiesByElement(element)
@@ -24,11 +25,20 @@ class MetadataService(
         HashMap(getMetadataOf(element).map { it.key to it.value }.toMap<String, String>())
 
     fun putMetaEntry(element: SequentialElementEntity, key: String, value: String): MetadataEntity {
+        val conflict = getByKeyAndElement(key, element)
+
+        if (conflict != null) {
+            conflict.value = value
+            metadataRepository.save(conflict)
+            return conflict
+        }
+
         val entity = MetadataEntity()
         entity.key = key
         entity.value = value
         entity.element = element
         metadataRepository.save(entity)
+
         return entity
     }
 

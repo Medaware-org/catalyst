@@ -12,13 +12,12 @@ import org.medaware.catalyst.security.currentSession
 import org.springframework.http.HttpStatus
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
-import org.springframework.transaction.annotation.Propagation
 import org.springframework.transaction.annotation.Transactional
 import java.time.Instant
 import java.util.UUID
 
 @Service
-@Transactional(propagation = Propagation.REQUIRED)
+
 class MaintainerService(
     val maintainerRepository: MaintainerRepository,
     val bCryptPasswordEncoder: BCryptPasswordEncoder,
@@ -30,6 +29,7 @@ class MaintainerService(
         maintainerRepository.getMaintainerEntityById(id)
 
     @PostConstruct
+    @Transactional
     fun createDefaultMaintainer() {
         if (maintainerExists(catalystConfiguration.username))
             return
@@ -42,6 +42,9 @@ class MaintainerService(
             catalystConfiguration.password
         )
     }
+
+    fun getDefault(): MaintainerEntity =
+        maintainerRepository.getMaintainerEntityByUsername(catalystConfiguration.username)!!
 
     fun maintainerExists(username: String): Boolean =
         maintainerRepository.getMaintainerEntityByUsername(username) != null

@@ -5,18 +5,17 @@ import org.medaware.catalyst.persistence.model.ArticleEntity
 import org.medaware.catalyst.persistence.model.MaintainerEntity
 import org.medaware.catalyst.persistence.repository.ArticleRepository
 import org.medaware.catalyst.security.currentSession
+import org.medaware.catalyst.security.isAuthenticated
 import org.springframework.stereotype.Service
-import org.springframework.transaction.annotation.Propagation
-import org.springframework.transaction.annotation.Transactional
 import java.time.Instant
 import java.util.UUID
 
 @Service
-@Transactional(propagation = Propagation.REQUIRED)
 class ArticleService(
     val articleRepository: ArticleRepository,
     val sequentialElementService: SequentialElementService,
-    val renderTaskService: RenderTaskService
+    val renderTaskService: RenderTaskService,
+    val maintainerService: MaintainerService
 ) {
 
     fun getArticlesBy(maintainer: MaintainerEntity): List<ArticleEntity> =
@@ -35,13 +34,19 @@ class ArticleService(
         val article = ArticleEntity()
         article.title = title
         article.createdAt = Instant.now()
-        article.maintainer = currentSession().maintainer
+        article.maintainer = if (isAuthenticated()) currentSession().maintainer else maintainerService.getDefault()
         articleRepository.save(article)
 
         // At this point, this article does not have a root element yet. So let's create one now.
-        val title = sequentialElementService.insertBlankElement(article, null, "root")
+        val titleElement = sequentialElementService.insertElement(
+            article, null, "title", "HEADING", meta = arrayOf(
+                "TEXT" to title
+            )
+        )
 
-        article.rootElement = title.id
+        sequentialElementService.insertElement(article, titleElement.id, "blank-element")
+
+        article.rootElement = titleElement.id
         articleRepository.save(article)
 
         return article.toDto()
@@ -58,10 +63,6 @@ class ArticleService(
         val elements = sequentialElementService.findAllElementsOfArticle(tmpArticle)
         renderTaskService.removeAllOf(tmpArticle)
         detachRoot(tmpArticle)
-
-        // The individual transactions seem to be getting out-of-sync. This is a temporary work-around.
-        // TODO Find and resolve the underlying issue
-        getArticleById(article.id)
 
         for (element in elements.reversed())
             sequentialElementService.deleteElement(element, allowRootDeletion = true)
