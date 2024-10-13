@@ -60,4 +60,9 @@ class MetadataService(
         return requirements
     }
 
+    fun getValueConstraintsOf(entryType: String): Array<String>? {
+        val meta = AvisMeta.byNameOrNull(entryType) ?: return null
+        return meta.valueConstraints
+    }
+
 }

@@ -1,6 +1,5 @@
 package org.medaware.catalyst.service.avis
 
-import com.google.gson.GsonBuilder
 import org.medaware.anterogradia.Anterogradia
 import org.medaware.anterogradia.rootCause
 import org.medaware.anterogradia.runtime.Runtime
@@ -16,7 +15,6 @@ import org.medaware.catalyst.service.SequentialElementService
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
-import kotlin.math.log
 
 data class RenderResultObject(val antg: String, val html: String)
 

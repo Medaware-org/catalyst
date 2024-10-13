@@ -282,7 +282,7 @@ paths:
   /tan/aux/types:
     get:
       operationId: getElementTypes
-      summary: Get a list of all the possible element types alongside their requirements
+      summary: Get a list of all the possible element types alongside their requirements and value constraints
       tags:
         - Tangential-Auxiliary
       responses:
@@ -294,6 +294,28 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/elementTypeRequirement"
+
+  /tan/aux/constraints/{type}:
+    get:
+      operationId: getMetaEntryValueConstraints
+      summary: Get a list of possible values for a metadata entry
+      tags:
+        - Tangential-Auxiliary
+      parameters:
+        - in: path
+          name: type
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Value constraints
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
 
 
   /tan/metadata/{elementId}:
