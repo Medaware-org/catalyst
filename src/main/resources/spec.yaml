@@ -295,18 +295,12 @@ paths:
                 items:
                   $ref: "#/components/schemas/elementTypeRequirement"
 
-  /tan/aux/constraints/{type}:
+  /tan/aux/constraints:
     get:
       operationId: getMetaEntryValueConstraints
-      summary: Get a list of possible values for a metadata entry
+      summary: Get a list of possible values for all metadata entries
       tags:
         - Tangential-Auxiliary
-      parameters:
-        - in: path
-          name: type
-          required: true
-          schema:
-            type: string
       responses:
         200:
           description: Value constraints
@@ -315,7 +309,14 @@ paths:
               schema:
                 type: array
                 items:
-                  type: string
+                  type: object
+                  properties:
+                    key:
+                      type: string
+                    constraints:
+                      type: array
+                      items:
+                        type: string
 
 
   /tan/metadata/{elementId}:

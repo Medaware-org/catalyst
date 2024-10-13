@@ -2,6 +2,7 @@ package org.medaware.catalyst.rest
 
 import org.medaware.catalyst.api.TangentialAuxiliaryApi
 import org.medaware.catalyst.dto.ElementTypeRequirement
+import org.medaware.catalyst.dto.GetMetaEntryValueConstraints200ResponseInner
 import org.medaware.catalyst.service.MetadataService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.RestController
@@ -15,12 +16,10 @@ class AuxDataController(
         return ResponseEntity.ok(metadataService.getAvailableElementTypesAndMetaRequirements())
     }
 
-    override fun getMetaEntryValueConstraints(type: String): ResponseEntity<List<String>> {
-        return ResponseEntity.ok((metadataService.getValueConstraintsOf(type).let {
-            if (it == null)
-                return@let listOf<String>()
-            else
-                return@let it.asList()
-        }))
+    override fun getMetaEntryValueConstraints(): ResponseEntity<List<GetMetaEntryValueConstraints200ResponseInner>> {
+        return ResponseEntity.ok(metadataService.getValueConstraintsOfAllMetadataEntries().map {
+            GetMetaEntryValueConstraints200ResponseInner(it.first, it.second.toList())
+        })
     }
+
 }

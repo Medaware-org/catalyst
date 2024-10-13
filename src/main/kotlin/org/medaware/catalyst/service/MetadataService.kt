@@ -60,6 +60,14 @@ class MetadataService(
         return requirements
     }
 
+    fun getValueConstraintsOfAllMetadataEntries(): List<Pair<String, Array<String>>> {
+        val constraints = mutableListOf<Pair<String, Array<String>>>()
+        AvisMeta.entries.toTypedArray().forEach {
+            constraints.add(it.toString() to (it.valueConstraints ?: arrayOf()))
+        }
+        return constraints
+    }
+
     fun getValueConstraintsOf(entryType: String): Array<String>? {
         val meta = AvisMeta.byNameOrNull(entryType) ?: return null
         return meta.valueConstraints
