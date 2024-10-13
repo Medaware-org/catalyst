@@ -1,5 +1,6 @@
 package org.medaware.catalyst.service.avis
 
+import com.google.gson.GsonBuilder
 import org.medaware.anterogradia.Anterogradia
 import org.medaware.anterogradia.rootCause
 import org.medaware.anterogradia.runtime.Runtime
@@ -29,7 +30,7 @@ class AvisInterfaceService(
 
     fun render(avisArticle: AvisArticle): RenderResultObject {
         val antgSource = try {
-            avisArticle.renderer().render().dump()
+            avisArticle.renderer().render()
         } catch (e: Exception) {
             e.printStackTrace()
             throw CatalystException(
@@ -39,11 +40,13 @@ class AvisInterfaceService(
             )
         }
 
+        val dumpedTree = antgSource.dump()
+
         val runtime = Runtime()
         runtime.loadLibrary(MedawareDesignKit::class.java.canonicalName, "avis")
 
         var htmlResult: String =
-            Anterogradia.invokeCompiler(antgSource, antgRuntime = runtime).use { input, output, except, dump ->
+            Anterogradia.invokeCompiler(dumpedTree, antgRuntime = runtime).use { input, output, except, dump ->
                 if (except != null) {
                     val rootCause = except.rootCause()
                     logger.error("Could not render Anterogradia sources for article ${avisArticle.id} !!")
@@ -58,7 +61,7 @@ class AvisInterfaceService(
                 return@use output
             }
 
-        return RenderResultObject(antgSource, htmlResult)
+        return RenderResultObject(dumpedTree, htmlResult)
     }
 
     fun assembleArticle(article: ArticleEntity): AvisArticle {

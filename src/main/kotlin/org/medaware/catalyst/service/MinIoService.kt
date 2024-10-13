@@ -52,7 +52,7 @@ class MinIoService(
         )
     }
 
-    fun retrieve(objectName: String): ByteArray? {
+    fun retrieve(objectName: String, failIfNotExists: Boolean = true): ByteArray? {
         val response = try {
             minioClient.getObject(
                 GetObjectArgs
@@ -62,10 +62,13 @@ class MinIoService(
                     .build()
             )
         } catch (e: ErrorResponseException) {
-            throw CatalystException(
-                "Resource not found", "Could not find the requested resource ID \"$objectName\"",
-                HttpStatus.NOT_FOUND
-            )
+            if (failIfNotExists)
+                throw CatalystException(
+                    "Resource not found", "Could not find the requested resource ID \"$objectName\"",
+                    HttpStatus.NOT_FOUND
+                )
+            else
+                return null
         }
         val bytes = response.readAllBytes()
         response.close()
@@ -74,7 +77,7 @@ class MinIoService(
 
     fun storeOrRetrieveResource(url: String): String {
         val objectName = Base64.getEncoder().encodeToString(url.toByteArray())
-        var retrievedObject = retrieve(objectName)
+        var retrievedObject = retrieve(objectName, failIfNotExists = false)
         if (retrievedObject != null)
             return objectName
         val template = RestTemplate()
@@ -88,7 +91,7 @@ class MinIoService(
             )
         }
         upload(objectName, data!!)
-        logger.info("Stored new resource from \"$url\" as \"$objectName\"")
+        logger.info("Resource stored - \"$url\"")
         return objectName
     }
 
