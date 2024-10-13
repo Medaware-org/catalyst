@@ -1,7 +1,7 @@
 package org.medaware.catalyst.service
 
 import jakarta.annotation.PostConstruct
-import org.medaware.catalyst.config.CatalystConfiguration
+import org.medaware.catalyst.config.catalyst.CatalystAccessConfiguration
 import org.medaware.catalyst.dto.AccountUpdateRequest
 import org.medaware.catalyst.dto.TangentialLoginRequest
 import org.medaware.catalyst.exception.CatalystException
@@ -21,7 +21,7 @@ import java.util.UUID
 class MaintainerService(
     val maintainerRepository: MaintainerRepository,
     val bCryptPasswordEncoder: BCryptPasswordEncoder,
-    val catalystConfiguration: CatalystConfiguration,
+    val catalystAccessConfiguration: CatalystAccessConfiguration,
     val sessionService: SessionService
 ) {
 
@@ -31,20 +31,20 @@ class MaintainerService(
     @PostConstruct
     @Transactional
     fun createDefaultMaintainer() {
-        if (maintainerExists(catalystConfiguration.username))
+        if (maintainerExists(catalystAccessConfiguration.username))
             return
 
         createMaintainer(
             "Default",
             "Maintainer",
-            catalystConfiguration.username,
+            catalystAccessConfiguration.username,
             "System Administrator",
-            catalystConfiguration.password
+            catalystAccessConfiguration.password
         )
     }
 
     fun getDefault(): MaintainerEntity =
-        maintainerRepository.getMaintainerEntityByUsername(catalystConfiguration.username)!!
+        maintainerRepository.getMaintainerEntityByUsername(catalystAccessConfiguration.username)!!
 
     fun maintainerExists(username: String): Boolean =
         maintainerRepository.getMaintainerEntityByUsername(username) != null

@@ -17,6 +17,12 @@ springdoc:
     url: /catalyst-api-docs
 
 catalyst:
+  server: http://localhost:8080
   default-access:
     username: admin
     password: admin
+  minio:
+    endpoint: http://localhost:9000
+    access-key: Eq6au9frqwwHVrM7cv4H
+    secret-key: UtOzqyvhQRIzGSzjm2jHVjLV6V9S3aWGPKNhkBf5
+    bucket: catalyst-resources

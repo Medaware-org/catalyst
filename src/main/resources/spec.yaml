@@ -38,6 +38,29 @@ paths:
               schema:
                 type: string
 
+  /rsrc/{id}:
+    get:
+      operationId: getResource
+      summary: Get a stored resource
+      tags:
+        - Resources
+      parameters:
+        - in: path
+          name: id
+          description: Resource ID
+          required: true
+          schema:
+            type: string
+            format: base64
+      responses:
+        200:
+          description: Resource data
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+
   /antg/compile:
     post:
       operationId: compileAnterogradia

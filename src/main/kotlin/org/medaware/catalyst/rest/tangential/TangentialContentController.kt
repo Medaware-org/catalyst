@@ -1,5 +1,6 @@
 package org.medaware.catalyst.rest.tangential
 
+import org.medaware.avis.AvisMeta
 import org.medaware.catalyst.api.TangentialContentApi
 import org.medaware.catalyst.dto.AlterElementRequest
 import org.medaware.catalyst.dto.ArticleCreationRequest
@@ -107,12 +108,22 @@ class TangentialContentController(
 
     override fun insertElement(elementInsertRequest: ElementInsertRequest): ResponseEntity<ElementResponse> {
         val article = retrieveArticleById(elementInsertRequest.article)
+
+        if (!AvisMeta.ELEMENT_TYPE.valueConstraints!!.contains(elementInsertRequest.type ?: ""))
+            throw CatalystException(
+                "Invalid Element Type",
+                "The element type \"${elementInsertRequest.type}\" does not exist.",
+                HttpStatus.UNPROCESSABLE_ENTITY
+            )
+
         var element: SequentialElementEntity = elementService.insertElement(
             article,
             elementInsertRequest.after,
             elementInsertRequest.handle,
             elementInsertRequest.type ?: "BLANK_PLACEHOLDER"
         )
+
+        elementService.switchElementToType(element, elementInsertRequest.type!!)
 
         return ResponseEntity.ok(
             element.toDto()

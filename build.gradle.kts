@@ -27,6 +27,8 @@ dependencies {
     implementation("org.medaware:anterogradia:1.1.1")
     implementation("org.medaware:anterogradia-avis:2.0.0")
 
+    implementation("io.minio:minio:8.5.12")
+
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.boot:spring-boot-starter-web")
