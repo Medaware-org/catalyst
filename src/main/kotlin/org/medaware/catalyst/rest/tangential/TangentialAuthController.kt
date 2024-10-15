@@ -32,7 +32,6 @@ class TangentialAuthController(
     }
 
     override fun updateProfileDetails(accountUpdateRequest: AccountUpdateRequest): ResponseEntity<Unit> {
-        Thread.sleep(1000)
         maintainerService.updateAccountDetails(currentSession().maintainer, accountUpdateRequest)
         return ResponseEntity.ok().build()
     }

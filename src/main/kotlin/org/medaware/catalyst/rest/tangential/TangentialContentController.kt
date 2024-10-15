@@ -11,6 +11,7 @@ import org.medaware.catalyst.dto.ElementInsertRequest
 import org.medaware.catalyst.dto.ElementResponse
 import org.medaware.catalyst.dto.MetadataCreateRequest
 import org.medaware.catalyst.dto.MetadataEntry
+import org.medaware.catalyst.dto.RenameArticleRequest
 import org.medaware.catalyst.exception.CatalystException
 import org.medaware.catalyst.persistence.model.ArticleEntity
 import org.medaware.catalyst.persistence.model.SequentialElementEntity
@@ -47,7 +48,6 @@ class TangentialContentController(
             HttpStatus.NOT_FOUND
         )
     }
-
 
     override fun listArticles(selector: String): ResponseEntity<List<ArticleResponse>> {
         val uuid = try {
@@ -147,4 +147,11 @@ class TangentialContentController(
         articleService.deleteArticle(article)
         return ResponseEntity.ok().build()
     }
+
+    override fun renameArticle(renameArticleRequest: RenameArticleRequest): ResponseEntity<Unit> {
+        val article = retrieveArticleById(renameArticleRequest.id)
+        articleService.renameArticle(article, renameArticleRequest.title)
+        return ResponseEntity.ok().build()
+    }
+
 }

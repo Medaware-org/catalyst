@@ -70,4 +70,9 @@ class ArticleService(
         articleRepository.delete(article)
     }
 
+    fun renameArticle(article: ArticleEntity, newName: String) {
+        article.title = newName
+        articleRepository.save(article)
+    }
+
 }

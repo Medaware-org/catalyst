@@ -195,6 +195,20 @@ paths:
       responses:
         200:
           description: Article removed
+    put:
+      operationId: renameArticle
+      summary: Change the title of an existing article
+      tags:
+        - Tangential-Content
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/renameArticleRequest"
+      responses:
+        200:
+          description: Article renamed
 
   /tan/elements/{id}:
     get:
@@ -571,6 +585,18 @@ components:
         id:
           type: string
           format: uuid
+
+    renameArticleRequest:
+      type: object
+      required:
+        - id
+        - title
+      properties:
+        id:
+          type: string
+          format: uuid
+        title:
+          type: string
 
     elementTypeRequirement:
       type: object
