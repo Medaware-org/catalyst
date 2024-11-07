@@ -3,7 +3,6 @@ package org.medaware.catalyst.service
 import org.medaware.anterogradia.rootCause
 import org.medaware.avis.AvisMeta
 import org.medaware.avis.exception.AvisValidationException
-import org.medaware.catalyst.capitalized
 import org.medaware.catalyst.exception.CatalystException
 import org.medaware.catalyst.persistence.model.ArticleEntity
 import org.medaware.catalyst.persistence.model.SequentialElementEntity

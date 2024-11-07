@@ -17,7 +17,6 @@ import java.time.Instant
 import java.util.UUID
 
 @Service
-
 class MaintainerService(
     val maintainerRepository: MaintainerRepository,
     val bCryptPasswordEncoder: BCryptPasswordEncoder,
