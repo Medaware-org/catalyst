@@ -1,7 +1,12 @@
 ## Medaware Catalyst™
 The Backend for the Medaware Platform as well as the _Tangential_ ™ system
 
-## How to dev this locally
+# How to dev this locally
+## Script
+One way to set up the environment is to use the [Setup Script](https://github.com/Medaware-org/setup-script).
+Make sure you have Java _17_ installed before invoking the script.
+
+## Manually
 ### Dependencies
 Before anything, please make sure to compile and publish the dependencies:
 - [Anterogradia](https://github.com/Medaware-org/anterogradia)
