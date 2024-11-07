@@ -80,8 +80,10 @@ Enter the MinIO interface at `http://localhost:9000` with following credentials:
 |----------|----------|
 | catalyst | medaware |
 
-Proceed with creating an access key. Finally, copy said access key into `catalyst.minio.access-key`
+Proceed with creating an access key and copying said access key into `catalyst.minio.access-key`
 in `src/main/resources/application.yaml`.
+
+Finally, create a new bucket `catalyst-resources`.
 
 ### Run the backend
 
