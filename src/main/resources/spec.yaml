@@ -332,7 +332,6 @@ paths:
                       items:
                         type: string
 
-
   /tan/metadata/{elementId}:
     put:
       operationId: putMetadata
