@@ -8,14 +8,15 @@ import org.medaware.catalyst.security.currentSession
 import org.medaware.catalyst.security.isAuthenticated
 import org.springframework.stereotype.Service
 import java.time.Instant
-import java.util.UUID
+import java.util.*
 
 @Service
 class ArticleService(
     val articleRepository: ArticleRepository,
     val sequentialElementService: SequentialElementService,
     val renderTaskService: RenderTaskService,
-    val maintainerService: MaintainerService
+    val maintainerService: MaintainerService,
+    val topicService: TopicService
 ) {
 
     fun getArticlesBy(maintainer: MaintainerEntity): List<ArticleEntity> =
@@ -35,6 +36,7 @@ class ArticleService(
         article.title = title
         article.createdAt = Instant.now()
         article.maintainer = if (isAuthenticated()) currentSession().maintainer else maintainerService.getDefault()
+        article.topic = topicService.getFallbackTopic()
         articleRepository.save(article)
 
         // At this point, this article does not have a root element yet. So let's create one now.

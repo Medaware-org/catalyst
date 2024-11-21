@@ -293,6 +293,84 @@ paths:
         200:
           description: Switched element type
 
+  /topic:
+    get:
+      operationId: getAllTopics
+      summary: Get the list of all available topics
+      tags:
+        - Topics
+      responses:
+        200:
+          description: A list of all element types
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/topicResponse"
+    post:
+      operationId: createNewTopic
+      summary: Add a new topic
+      tags:
+        - Topics
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/topicCreationRequest"
+      responses:
+        200:
+          description: The element was successfully created
+
+    delete:
+      operationId: deleteTopic
+      summary: Delete an existing topic
+      tags:
+        - Topics
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - id
+              properties:
+                id:
+                  type: string
+                  format: uuid
+      responses:
+        200:
+          description: The element was successfully deleted
+
+    put:
+      operationId: updateTopic
+      summary: Update an existing topic
+      tags:
+        - Topics
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - id
+              properties:
+                id:
+                  type: string
+                  format: uuid
+                name:
+                  type: string
+                description:
+                  type: string
+
+      responses:
+        200:
+          description: Element successfully updated
+
+
   /tan/aux/types:
     get:
       operationId: getElementTypes
@@ -609,3 +687,34 @@ components:
           type: array
           items:
             type: string
+
+    topicCreationRequest:
+      type: object
+      required:
+        - name
+        - description
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+
+    topicResponse:
+      type: object
+      required:
+        - id
+        - name
+        - description
+        - color
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        description:
+          type: string
+        color:
+          type: string
+          maxLength: 7
+          minLength: 6

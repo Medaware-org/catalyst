@@ -26,3 +26,6 @@ catalyst:
     access-key: uLshB1CM2LQ9tDVMl2Wq
     secret-key: yHkXYn3CzQUcwyIS5UYiFsO9P5tS3OcWARGuGkOu
     bucket: catalyst-resources
+  default-topic:
+    name: Fallback
+    description: The default fallback topic

@@ -1,17 +1,10 @@
 package org.medaware.catalyst.persistence.model
 
-import jakarta.persistence.Column
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
-import jakarta.persistence.JoinColumn
-import jakarta.persistence.ManyToOne
-import jakarta.persistence.Table
+import jakarta.persistence.*
 import org.medaware.catalyst.dto.ArticleResponse
 import java.time.Instant
 import java.time.ZoneId
-import java.util.UUID
+import java.util.*
 
 @Entity
 @Table(name = "article")
@@ -35,6 +28,10 @@ class ArticleEntity {
     @Column(name = "root_element", nullable = true)
     var rootElement: UUID? = null
 
+    @ManyToOne
+    @JoinColumn(name = "topic")
+    lateinit var topic: TopicEntity
+
     fun toDto(): ArticleResponse =
         ArticleResponse(
             author = maintainer.displayName,
@@ -42,5 +39,4 @@ class ArticleEntity {
             date = createdAt.atZone(ZoneId.systemDefault()).toLocalDate(),
             id = id
         )
-
 }
