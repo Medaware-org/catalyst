@@ -7,6 +7,7 @@ import org.medaware.catalyst.exception.CatalystException
 import org.medaware.catalyst.persistence.model.TopicEntity
 import org.medaware.catalyst.persistence.repository.ArticleRepository
 import org.medaware.catalyst.persistence.repository.TopicRepository
+import org.medaware.catalyst.textColor
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
@@ -65,6 +66,8 @@ class TopicService(
         entity.description = description
         entity.editable = editable
         entity.color = color.validateColor()
+        entity.textColor = textColor(color)
+
         topicRepository.save(entity)
 
         return entity
@@ -86,8 +89,10 @@ class TopicService(
     fun updateTopic(id: UUID, name: String?, description: String?, color: String?) {
         val entity = retrieveTopic(id)
 
-        if (color != null)
+        if (color != null) {
             entity.color = color.validateColor()
+            entity.textColor = textColor(color)
+        }
 
         if (name != null)
             entity.name = name

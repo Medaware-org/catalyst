@@ -1,2 +1,2 @@
 alter table topic
-    add color text default '9b59b6';
+    add color text not null default '9b59b6';

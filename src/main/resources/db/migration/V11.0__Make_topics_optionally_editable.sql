@@ -1,2 +1,2 @@
 alter table topic
-    add editable bool default true;
+    add editable bool not null default true;

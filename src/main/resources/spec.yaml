@@ -716,6 +716,7 @@ components:
         - name
         - description
         - color
+        - text-color
         - editable
       properties:
         id:
@@ -729,3 +730,5 @@ components:
           type: string
         editable:
           type: boolean
+        text-color:
+          type: string

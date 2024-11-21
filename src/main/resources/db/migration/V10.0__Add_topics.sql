@@ -11,4 +11,7 @@ alter table article
     add topic uuid;
 
 alter table article
+    alter column topic set not null;
+
+alter table article
     add foreign key (topic) references topic (id);

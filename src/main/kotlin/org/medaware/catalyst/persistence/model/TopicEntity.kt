@@ -24,7 +24,17 @@ class TopicEntity {
     @Column(name = "color")
     lateinit var color: String
 
+    @Column(name = "text_color")
+    lateinit var textColor: String
+
     fun toDto(): TopicResponse =
-        TopicResponse(id = id, name = name, description = description, color = color, editable = editable)
+        TopicResponse(
+            id = id,
+            name = name,
+            description = description,
+            color = color,
+            editable = editable,
+            textColor = textColor
+        )
 
 }
