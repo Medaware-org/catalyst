@@ -33,7 +33,7 @@ class TopicService(
             return@run createTopic(
                 defaultTopicConfig.name,
                 defaultTopicConfig.description,
-                "#bdc3c7",
+                defaultTopicConfig.color,
                 editable = false
             )
         }

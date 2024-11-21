@@ -29,3 +29,4 @@ catalyst:
   default-topic:
     name: Fallback
     description: The default fallback topic
+    color: "#bdc3c7"

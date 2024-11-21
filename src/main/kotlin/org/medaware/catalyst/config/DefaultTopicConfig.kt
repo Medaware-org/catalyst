@@ -10,11 +10,12 @@ class DefaultTopicConfig {
 
     var name: String = ""
     var description: String = ""
+    var color: String = ""
 
     @PostConstruct
     fun validate() {
-        if (name.isEmpty() || description.isEmpty())
-            throw IllegalArgumentException("The name and description of the default topic must not be empty.")
+        if (name.isEmpty() || description.isEmpty() || color.isEmpty())
+            throw IllegalArgumentException("The name, description and color of the default topic must not be empty.")
     }
 
 }
