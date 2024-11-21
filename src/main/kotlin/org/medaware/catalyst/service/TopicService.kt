@@ -33,6 +33,7 @@ class TopicService(
             return@run createTopic(
                 defaultTopicConfig.name,
                 defaultTopicConfig.description,
+                "#bdc3c7",
                 editable = false
             )
         }
@@ -41,11 +42,27 @@ class TopicService(
             throw IllegalStateException("The default topic \"${defaultTopicConfig.name}\" (\"${defaultTopicConfig.description}\") must not be editable!")
     }
 
-    fun createTopic(name: String, description: String, editable: Boolean = true): TopicEntity {
+    private fun String.validateColor(): String {
+        val exception =
+            CatalystException("Invalid Color", "The color $this is invalid.", HttpStatus.UNPROCESSABLE_ENTITY)
+
+        var expectedLength = if (startsWith("#")) 7 else 6
+
+        if (length != expectedLength)
+            throw exception
+
+        if (expectedLength == 7 && !(substring(1).matches("[a-zA-Z0-9]+".toRegex())))
+            throw exception
+
+        return if (expectedLength == 7) substring(1) else this
+    }
+
+    fun createTopic(name: String, description: String, color: String, editable: Boolean = true): TopicEntity {
         val entity = TopicEntity()
         entity.name = name
         entity.description = description
         entity.editable = editable
+        entity.color = color.validateColor()
         topicRepository.save(entity)
 
         return entity
@@ -64,8 +81,11 @@ class TopicService(
         )
     }
 
-    fun updateTopic(id: UUID, name: String?, description: String?) {
+    fun updateTopic(id: UUID, name: String?, description: String?, color: String?) {
         val entity = retrieveTopic(id)
+
+        if (color != null)
+            entity.color = color.validateColor()
 
         if (name != null)
             entity.name = name

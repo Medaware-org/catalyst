@@ -15,7 +15,7 @@ class TopicsController(
 ) : TopicsApi {
 
     override fun createNewTopic(topicCreationRequest: TopicCreationRequest): ResponseEntity<Unit> {
-        topicService.createTopic(topicCreationRequest.name, topicCreationRequest.description);
+        topicService.createTopic(topicCreationRequest.name, topicCreationRequest.description, topicCreationRequest.color);
         return ResponseEntity.ok().build();
     }
 
@@ -35,7 +35,8 @@ class TopicsController(
             topicService.updateTopic(
                 updateTopicRequest.id,
                 updateTopicRequest.name,
-                updateTopicRequest.description
+                updateTopicRequest.description,
+                updateTopicRequest.color
             )
         )
     }

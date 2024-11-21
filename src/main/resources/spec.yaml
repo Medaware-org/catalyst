@@ -365,6 +365,8 @@ paths:
                   type: string
                 description:
                   type: string
+                color:
+                  type: string
 
       responses:
         200:
@@ -696,10 +698,13 @@ components:
       required:
         - name
         - description
+        - color
       properties:
         name:
           type: string
         description:
+          type: string
+        color:
           type: string
 
     topicResponse:
@@ -719,5 +724,3 @@ components:
           type: string
         color:
           type: string
-          maxLength: 7
-          minLength: 6
