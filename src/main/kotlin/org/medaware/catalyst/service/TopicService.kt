@@ -46,15 +46,17 @@ class TopicService(
         val exception =
             CatalystException("Invalid Color", "The color $this is invalid.", HttpStatus.UNPROCESSABLE_ENTITY)
 
-        var expectedLength = if (startsWith("#")) 7 else 6
+        val trimmed = trim()
 
-        if (length != expectedLength)
+        var expectedLength = if (trimmed.startsWith("#")) 7 else 6
+
+        if (trimmed.length != expectedLength)
             throw exception
 
-        if (expectedLength == 7 && !(substring(1).matches("[a-zA-Z0-9]+".toRegex())))
+        if (expectedLength == 7 && !(trimmed.substring(1).matches("[a-zA-Z0-9]+".toRegex())))
             throw exception
 
-        return if (expectedLength == 7) substring(1) else this
+        return if (expectedLength == 7) trimmed.substring(1) else this
     }
 
     fun createTopic(name: String, description: String, color: String, editable: Boolean = true): TopicEntity {
