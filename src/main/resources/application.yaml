@@ -23,6 +23,6 @@ catalyst:
     password: admin
   minio:
     endpoint: http://localhost:9000
-    access-key: g9WaLADfXJyOjNs4dR8Q
-    secret-key: cEJeNw6x9xvIYQKufh738z47686fKY5uzXuOwbDb
+    access-key: uLshB1CM2LQ9tDVMl2Wq
+    secret-key: yHkXYn3CzQUcwyIS5UYiFsO9P5tS3OcWARGuGkOu
     bucket: catalyst-resources
