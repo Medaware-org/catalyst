@@ -196,8 +196,8 @@ paths:
         200:
           description: Article removed
     put:
-      operationId: renameArticle
-      summary: Change the title of an existing article
+      operationId: updateArticle
+      summary: Update various parameters of an existing article
       tags:
         - Tangential-Content
       requestBody:
@@ -205,10 +205,10 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/renameArticleRequest"
+              $ref: "#/components/schemas/updateArticleRequest"
       responses:
         200:
-          description: Article renamed
+          description: Article updated
 
   /tan/elements/{id}:
     get:
@@ -668,17 +668,19 @@ components:
           type: string
           format: uuid
 
-    renameArticleRequest:
+    updateArticleRequest:
       type: object
       required:
         - id
-        - title
       properties:
         id:
           type: string
           format: uuid
         title:
           type: string
+        topic:
+          type: string
+          format: uuid
 
     elementTypeRequirement:
       type: object

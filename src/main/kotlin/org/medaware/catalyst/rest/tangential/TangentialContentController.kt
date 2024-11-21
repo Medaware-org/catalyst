@@ -2,16 +2,7 @@ package org.medaware.catalyst.rest.tangential
 
 import org.medaware.avis.AvisMeta
 import org.medaware.catalyst.api.TangentialContentApi
-import org.medaware.catalyst.dto.AlterElementRequest
-import org.medaware.catalyst.dto.ArticleCreationRequest
-import org.medaware.catalyst.dto.ArticleResponse
-import org.medaware.catalyst.dto.DeleteArticleRequest
-import org.medaware.catalyst.dto.DeleteElementRequest
-import org.medaware.catalyst.dto.ElementInsertRequest
-import org.medaware.catalyst.dto.ElementResponse
-import org.medaware.catalyst.dto.MetadataCreateRequest
-import org.medaware.catalyst.dto.MetadataEntry
-import org.medaware.catalyst.dto.RenameArticleRequest
+import org.medaware.catalyst.dto.*
 import org.medaware.catalyst.exception.CatalystException
 import org.medaware.catalyst.persistence.model.ArticleEntity
 import org.medaware.catalyst.persistence.model.SequentialElementEntity
@@ -23,7 +14,7 @@ import org.medaware.catalyst.service.SequentialElementService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.RestController
-import java.util.UUID
+import java.util.*
 
 @RestController
 class TangentialContentController(
@@ -148,9 +139,9 @@ class TangentialContentController(
         return ResponseEntity.ok().build()
     }
 
-    override fun renameArticle(renameArticleRequest: RenameArticleRequest): ResponseEntity<Unit> {
-        val article = retrieveArticleById(renameArticleRequest.id)
-        articleService.renameArticle(article, renameArticleRequest.title)
+    override fun updateArticle(updateArticleRequest: UpdateArticleRequest): ResponseEntity<Unit> {
+        val article = retrieveArticleById(updateArticleRequest.id)
+        articleService.updateArticle(article, updateArticleRequest.title, updateArticleRequest.topic)
         return ResponseEntity.ok().build()
     }
 

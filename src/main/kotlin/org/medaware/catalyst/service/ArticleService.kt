@@ -72,8 +72,15 @@ class ArticleService(
         articleRepository.delete(article)
     }
 
-    fun renameArticle(article: ArticleEntity, newName: String) {
-        article.title = newName
+    fun updateArticle(article: ArticleEntity, title: String?, topic: UUID?) {
+        if (title != null)
+            article.title = title
+
+        if (topic != null) {
+            val topic = topicService.retrieveTopic(topic)
+            article.topic = topic
+        }
+
         articleRepository.save(article)
     }
 

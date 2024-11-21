@@ -73,7 +73,7 @@ class TopicService(
 
     fun getAllTopics(): List<TopicEntity> = topicRepository.findAll()
 
-    private fun retrieveTopic(id: UUID): TopicEntity = topicRepository.findById(id).orElseThrow {
+    fun retrieveTopic(id: UUID): TopicEntity = topicRepository.findById(id).orElseThrow {
         CatalystException(
             "Unknown Topic",
             "Could not modify undefined topic $id",
