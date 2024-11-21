@@ -545,6 +545,7 @@ components:
         - author
         - title
         - date
+        - topic
       properties:
         author:
           type: string
@@ -556,6 +557,8 @@ components:
         id:
           type: string
           format: uuid
+        topic:
+          $ref: "#/components/schemas/topicResponse"
 
     articleCreationRequest:
       type: object
