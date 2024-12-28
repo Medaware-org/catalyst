@@ -1,5 +1,6 @@
 package org.medaware.catalyst.service
 
+import com.google.gson.Gson
 import org.medaware.catalyst.persistence.model.ArticleEntity
 import org.medaware.catalyst.persistence.model.RenderTaskEntity
 import org.medaware.catalyst.persistence.repository.RenderTaskRepository
@@ -46,6 +47,8 @@ class RenderTaskService(
 
         val avisArticle = avisInterfaceService.assembleArticle(article)
         val result = avisInterfaceService.render(avisArticle)
+
+        println(Gson().toJson(result.antg))
 
         return createRenderTask(article, result.antg, result.html)
     }

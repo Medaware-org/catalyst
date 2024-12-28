@@ -42,6 +42,9 @@ dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
     testImplementation("org.springframework.security:spring-security-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
+    implementation("org.apache.lucene:lucene-core:7.3.0")
+    implementation("org.apache.lucene:lucene-queryparser:7.3.0")
 }
 
 openApiGenerate {

@@ -24,7 +24,7 @@ class MetadataService(
         metadataRepository.getMetadataEntitiesByElement(element)
 
     fun getMetadataMapOf(element: SequentialElementEntity): HashMap<String, String> =
-        HashMap(getMetadataOf(element).map { it.key to it.value }.toMap<String, String>())
+        HashMap(getMetadataOf(element).associate { it.key to it.value })
 
     fun putMetaEntry(element: SequentialElementEntity, key: String, value: String): MetadataEntity {
         val conflict = getByKeyAndElement(key, element)

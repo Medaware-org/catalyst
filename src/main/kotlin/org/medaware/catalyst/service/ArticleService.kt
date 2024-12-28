@@ -15,6 +15,7 @@ class ArticleService(
     val articleRepository: ArticleRepository,
     val sequentialElementService: SequentialElementService,
     val renderTaskService: RenderTaskService,
+    val metadataService: MetadataService,
     val maintainerService: MaintainerService,
     val topicService: TopicService
 ) {
@@ -24,12 +25,33 @@ class ArticleService(
 
     fun getDtosOfArticlesBy(maintainer: MaintainerEntity) = getArticlesBy(maintainer).map { it.toDto() }
 
+    fun getAllArticles() = articleRepository.findAll()
+
     fun getDtosOfArticlesBy(maintainerId: UUID) =
         articleRepository.getArticleEntitiesByMaintainerId(maintainerId).map { it.toDto() }
 
     fun getDtosOfAllArticles() = articleRepository.findAll().map { it.toDto() }
 
     fun getArticleById(id: UUID): ArticleEntity? = articleRepository.getArticleEntityById(id)
+
+    /**
+     * This functions dumps the entire article with all of its elements into an indexable string.
+     * TODO Improve this
+     */
+    fun dumpToString(article: ArticleEntity): String {
+        val elements = sequentialElementService.findAllElementsOfArticle(article)
+        val articleStr = StringBuilder()
+        val ignoreKeys = arrayOf("ELEMENT_TYPE")
+        elements.forEach {
+            metadataService.getMetadataOf(it).forEach {
+                if (ignoreKeys.contains(it.key))
+                    return@forEach
+
+                articleStr.append(it.value).append(" ")
+            }
+        }
+        return articleStr.toString()
+    }
 
     fun createArticle(title: String): ArticleResponse {
         val article = ArticleEntity()

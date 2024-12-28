@@ -17,7 +17,7 @@ fun textColor(hex: String): String {
     if (str.startsWith('#'))
         str = str.substring(1)
 
-    val color = Color.decode(str)
+    val color = Color.decode("#$str")
 
     return textColor(color.red, color.green, color.blue)
 }

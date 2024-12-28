@@ -61,6 +61,29 @@ paths:
                 type: string
                 format: binary
 
+  /query:
+    get:
+      operationId: queryArticles
+      summary: Search the article base
+      tags:
+        - Public
+      parameters:
+        - in: query
+          name: query
+          required: true
+          description: Query String
+          schema:
+            type: string
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/queryResponse"
+
   /antg/compile:
     post:
       operationId: compileAnterogradia
@@ -731,4 +754,19 @@ components:
         editable:
           type: boolean
         text-color:
+          type: string
+
+    queryResponse:
+      type: object
+      required:
+        - id
+        - title
+        - author
+      properties:
+        id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        author:
           type: string
