@@ -28,6 +28,9 @@ class ArticleEntity {
     @Column(name = "root_element", nullable = true)
     var rootElement: UUID? = null
 
+    @Column(name = "visible")
+    var visible: Boolean = false
+
     @ManyToOne
     @JoinColumn(name = "topic")
     lateinit var topic: TopicEntity
