@@ -7,9 +7,9 @@ fun String.capitalized(): String {
     return substring(0, 1).uppercase() + substring(1)
 }
 
-fun luminance(r: Int, g: Int, b: Int): Double = 0.2126 * r + 0.7152 * g + 0.0722 * b
+fun luminance(r: Float, g: Float, b: Float): Float = 0.2126f * r + 0.7152f * g + 0.0722f * b
 
-fun textColor(r: Int, g: Int, b: Int): String = if (luminance(r, g, b) > 0.5) "000000" else "ffffff"
+fun textColor(r: Float, g: Float, b: Float): String = if (luminance(r, g, b) > 0.5) "000000" else "ffffff"
 
 fun textColor(hex: String): String {
     var str = hex.trim()
@@ -19,5 +19,7 @@ fun textColor(hex: String): String {
 
     val color = Color.decode("#$str")
 
-    return textColor(color.red, color.green, color.blue)
+    val components = color.getRGBComponents(null)
+
+    return textColor(components[0], components[1], components[2])
 }

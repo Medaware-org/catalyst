@@ -739,7 +739,7 @@ components:
         - name
         - description
         - color
-        - text-color
+        - text_color
         - editable
       properties:
         id:
@@ -753,7 +753,7 @@ components:
           type: string
         editable:
           type: boolean
-        text-color:
+        text_color:
           type: string
 
     queryResponse:

@@ -15,12 +15,16 @@ class TopicsController(
 ) : TopicsApi {
 
     override fun createNewTopic(topicCreationRequest: TopicCreationRequest): ResponseEntity<Unit> {
-        topicService.createTopic(topicCreationRequest.name, topicCreationRequest.description, topicCreationRequest.color);
-        return ResponseEntity.ok().build();
+        topicService.createTopic(
+            topicCreationRequest.name,
+            topicCreationRequest.description,
+            topicCreationRequest.color
+        )
+        return ResponseEntity.ok().build()
     }
 
     override fun deleteTopic(deleteTopicRequest: DeleteTopicRequest): ResponseEntity<Unit> {
-        topicService.removeTopic(deleteTopicRequest.id);
+        topicService.removeTopic(deleteTopicRequest.id)
         return ResponseEntity.ok().build()
     }
 
