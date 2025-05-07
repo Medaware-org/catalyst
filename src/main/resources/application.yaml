@@ -23,8 +23,8 @@ catalyst:
     password: admin
   minio:
     endpoint: http://localhost:9000
-    access-key: WsFusmHWCkJxAhH079ut
-    secret-key: c3s6A5ghhxnnIXlLKYxtPpKfJMEQpLkjANjuZeL4
+    access-key: qumXIOMXA7dfMzbH6wpE
+    secret-key: rY4k0diCqJlNhX3FdbBexrQECyNF2nuRdflvWRe9
     bucket: catalyst-resources
   default-topic:
     name: Fallback

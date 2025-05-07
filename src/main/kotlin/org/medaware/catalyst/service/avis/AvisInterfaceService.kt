@@ -33,7 +33,7 @@ class AvisInterfaceService(
             e.printStackTrace()
             throw CatalystException(
                 "Rendering Failed",
-                "Failed to render article '${avisArticle.id}' via AVIS. Please contact the system administrator.",
+                "Failed to render article '${avisArticle.id}' via AVIS. Please contact the webmaster.",
                 HttpStatus.INTERNAL_SERVER_ERROR
             )
         }
@@ -52,7 +52,7 @@ class AvisInterfaceService(
                     logger.error(input)
                     throw CatalystException(
                         "Rendering Error",
-                        "Could not compile generated Anterogradia sources. This should not happen! Please contact the system administrator!",
+                        "Could not compile generated Anterogradia sources. This should not happen! Please contact the webmaster!",
                         HttpStatus.INTERNAL_SERVER_ERROR
                     )
                 }

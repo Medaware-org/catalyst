@@ -37,7 +37,7 @@ class MaintainerService(
             "Default",
             "Maintainer",
             catalystAccessConfiguration.username,
-            "System Administrator",
+            "Webmaster",
             catalystAccessConfiguration.password
         )
     }

@@ -7,6 +7,7 @@
         <setting name="provider-name" value="Hibernate" />
         <datasource-mapping>
           <factory-entry name="entityManagerFactory" value="31a679ec-2fad-4604-93e7-a07ffa694a49" />
+          <factory-entry name="org.medaware.catalyst.main" />
         </datasource-mapping>
         <naming-strategy-map />
       </configuration>
