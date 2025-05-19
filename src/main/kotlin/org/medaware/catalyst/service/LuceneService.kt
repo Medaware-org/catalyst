@@ -16,11 +16,12 @@ import org.apache.lucene.search.IndexSearcher
 import org.apache.lucene.store.Directory
 import org.apache.lucene.store.RAMDirectory
 import org.medaware.catalyst.dto.ArticleResponse
-import org.medaware.catalyst.dto.QueryResponse
 import org.medaware.catalyst.persistence.model.ArticleEntity
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
+import java.time.Instant
+import java.time.ZoneId
 import java.util.*
 
 @Service
@@ -67,6 +68,8 @@ class LuceneService(
         document.add(TextField("content", content, Field.Store.YES))
         document.add(TextField("id", article.id.toString(), Field.Store.YES))
         document.add(TextField("author", article.maintainer.username, Field.Store.YES))
+        document.add(TextField("topic", article.topic.name.lowercase(), Field.Store.YES))
+        document.add(TextField("date", article.createdAt.toString(), Field.Store.YES))
         writer.addDocument(document)
     }
 
@@ -84,9 +87,10 @@ class LuceneService(
             val document = searcher.doc(it.doc)
             responses.add(
                 ArticleResponse(
-                    UUID.fromString(document.get("id")),
+                    document.get("author"),
                     document.get("title"),
-                    document.get("author")
+                    Instant.parse(document.get("date")).atZone(ZoneId.systemDefault()).toLocalDate(),
+                    UUID.fromString(document.get("id")),
                 )
             )
         }

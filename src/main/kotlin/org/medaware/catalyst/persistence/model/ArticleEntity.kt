@@ -40,7 +40,6 @@ class ArticleEntity {
             author = maintainer.displayName,
             title = title,
             date = createdAt.atZone(ZoneId.systemDefault()).toLocalDate(),
-            id = id,
-            topic = topic.toDto(),
+            id = id
         )
 }

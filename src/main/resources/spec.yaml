@@ -82,7 +82,24 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/queryResponse"
+                  $ref: "#/components/schemas/articleResponse"
+
+  /articles:
+    get:
+      operationId: getAllArticles
+      summary: Get all articles
+      tags:
+        - Public
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/articleResponse"
+
 
   /antg/compile:
     post:
@@ -582,8 +599,6 @@ components:
         id:
           type: string
           format: uuid
-        topic:
-          $ref: "#/components/schemas/topicResponse"
 
     articleCreationRequest:
       type: object
@@ -754,19 +769,4 @@ components:
         editable:
           type: boolean
         textColor:
-          type: string
-
-    queryResponse:
-      type: object
-      required:
-        - id
-        - title
-        - author
-      properties:
-        id:
-          type: string
-          format: uuid
-        title:
-          type: string
-        author:
           type: string
