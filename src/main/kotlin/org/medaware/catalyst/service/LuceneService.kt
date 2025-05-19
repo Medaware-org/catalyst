@@ -15,6 +15,7 @@ import org.apache.lucene.search.FuzzyQuery
 import org.apache.lucene.search.IndexSearcher
 import org.apache.lucene.store.Directory
 import org.apache.lucene.store.RAMDirectory
+import org.medaware.catalyst.dto.ArticleResponse
 import org.medaware.catalyst.dto.QueryResponse
 import org.medaware.catalyst.persistence.model.ArticleEntity
 import org.slf4j.Logger
@@ -69,7 +70,7 @@ class LuceneService(
         writer.addDocument(document)
     }
 
-    fun queryArticles(query: String): List<QueryResponse> {
+    fun queryArticles(query: String): List<ArticleResponse> {
         val fields = arrayOf("title", "content", "id", "author")
         val booleanQuery = BooleanQuery.Builder()
         fields.forEach {
@@ -78,11 +79,11 @@ class LuceneService(
         }
         val query = booleanQuery.build()
         val tops = searcher.search(query, 100)
-        val responses: MutableList<QueryResponse> = mutableListOf()
+        val responses: MutableList<ArticleResponse> = mutableListOf()
         tops.scoreDocs.forEach {
             val document = searcher.doc(it.doc)
             responses.add(
-                QueryResponse(
+                ArticleResponse(
                     UUID.fromString(document.get("id")),
                     document.get("title"),
                     document.get("author")
