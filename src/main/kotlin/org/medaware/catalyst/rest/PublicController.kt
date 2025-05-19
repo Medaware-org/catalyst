@@ -27,24 +27,25 @@ class PublicController(
     override fun getAllArticles(): ResponseEntity<List<ArticleResponse>> =
         ResponseEntity.ok(articleService.getAllArticles().map { it.toDto() })
 
-    override fun requestOCR(data: Resource): ResponseEntity<RequestOCR200Response> =
+
+    override fun requestOCR(file: Resource): ResponseEntity<RequestOCR200Response> =
         ResponseEntity.ok(
             RequestOCR200Response(
                 ocrService.requestOcr(
-                    data.filename ?: throw CatalystException(
+                    file.filename ?: throw CatalystException(
                         "No Filename", "Could not request OCR: No filename given",
                         HttpStatus.BAD_REQUEST
-                    ), data.contentAsByteArray
+                    ), file.contentAsByteArray
                 ).data
             )
         )
 
-    override fun requestGHS(data: Resource): ResponseEntity<RequestGHS200Response> {
+    override fun requestGHS(file: Resource): ResponseEntity<RequestGHS200Response> {
         val response = ocrService.requestGhs(
-            data.filename ?: throw CatalystException(
+            file.filename ?: throw CatalystException(
                 "No Filename", "Could not request OCR: No filename given",
                 HttpStatus.BAD_REQUEST
-            ), data.contentAsByteArray
+            ), file.contentAsByteArray
         )
 
         return ResponseEntity.ok(

@@ -113,11 +113,11 @@ paths:
             schema:
               type: object
               properties:
-                data:
+                file:
                   type: string
                   format: binary
               required:
-                - data
+                - file
       responses:
         200:
           description: OK
@@ -144,11 +144,11 @@ paths:
             schema:
               type: object
               properties:
-                data:
+                file:
                   type: string
                   format: binary
               required:
-                - data
+                - file
       responses:
         200:
           description: OK
