@@ -100,6 +100,81 @@ paths:
                 items:
                   $ref: "#/components/schemas/articleResponse"
 
+  /ocr:
+    post:
+      operationId: requestOCR
+      summary: Perform OCR on the uploaded file
+      tags:
+        - Public
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: string
+                  format: binary
+              required:
+                - data
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: string
+
+  /ghs:
+    post:
+      operationId: requestGHS
+      summary: Perform GHS recognition on the uploaded file
+      tags:
+        - Public
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: string
+                  format: binary
+              required:
+                - data
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  output:
+                    type: string
+                  scores:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        class:
+                          type: string
+                        score:
+                          type: number
+                          format: double
+                      required:
+                        - class
+                        - score
+                required:
+                  - output
+                  - scores
 
   /antg/compile:
     post:
