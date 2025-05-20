@@ -24,19 +24,23 @@ class OCRService(
         override fun getFilename() = filename
     }
 
-    fun requestOcr(filename: String, imageBytes: ByteArray): OCRResponse = httpClient.post()
-        .uri("/api/ocr")
-        .contentType(MediaType.MULTIPART_FORM_DATA)
-        .body(BodyInserters.fromMultipartData("data", imageBytes.asResource(filename)))
-        .retrieve()
-        .bodyToMono(OCRResponse::class.java)
-        .block() ?: throw CatalystException(
-        "OCR Request Failed",
-        "The request to the OCR server failed",
-        HttpStatus.INTERNAL_SERVER_ERROR
-    )
+    fun requestOcr(filename: String, imageBytes: ByteArray): OCRResponse = try {
+        httpClient.post()
+            .uri("/api/ocr")
+            .contentType(MediaType.MULTIPART_FORM_DATA)
+            .body(BodyInserters.fromMultipartData("data", imageBytes.asResource(filename)))
+            .retrieve()
+            .bodyToMono(OCRResponse::class.java)
+            .block() ?: throw CatalystException(
+            "OCR Request Failed",
+            "The request to the OCR server failed",
+            HttpStatus.INTERNAL_SERVER_ERROR
+        )
+    } catch (e: Exception) {
+        throw CatalystException("Connection Failed", "Could not connect to the OCR server", HttpStatus.NOT_FOUND)
+    }
 
-    fun requestGhs(filename: String, imageBytes: ByteArray): GHSResponse =
+    fun requestGhs(filename: String, imageBytes: ByteArray): GHSResponse = try {
         httpClient.post()
             .uri("/api/cnn")
             .contentType(MediaType.MULTIPART_FORM_DATA)
@@ -48,5 +52,8 @@ class OCRService(
             "The request to the OCR server failed",
             HttpStatus.INTERNAL_SERVER_ERROR
         )
+    } catch (e: Exception) {
+        throw CatalystException("Connection Failed", "Could not connect to the OCR server", HttpStatus.NOT_FOUND)
+    }
 
 }

@@ -7,6 +7,7 @@ import org.springframework.web.HttpRequestMethodNotSupportedException
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.servlet.resource.NoResourceFoundException
+import java.net.ConnectException
 
 
 fun CatalystException.toDto() = CatalystError(this.summary, this.message)
