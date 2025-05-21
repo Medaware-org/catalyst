@@ -7,10 +7,7 @@ import org.medaware.catalyst.exception.CatalystException
 import org.medaware.catalyst.persistence.model.ArticleEntity
 import org.medaware.catalyst.persistence.model.SequentialElementEntity
 import org.medaware.catalyst.security.currentSession
-import org.medaware.catalyst.service.ArticleService
-import org.medaware.catalyst.service.MetadataService
-import org.medaware.catalyst.service.RenderTaskService
-import org.medaware.catalyst.service.SequentialElementService
+import org.medaware.catalyst.service.*
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.RestController
@@ -21,7 +18,8 @@ class TangentialContentController(
     val articleService: ArticleService,
     val metadataService: MetadataService,
     val elementService: SequentialElementService,
-    val renderTaskService: RenderTaskService
+    val renderTaskService: RenderTaskService,
+    private val luceneService: LuceneService
 ) : TangentialContentApi {
 
     private fun retrieveElementById(id: UUID): SequentialElementEntity {
@@ -40,7 +38,7 @@ class TangentialContentController(
         )
     }
 
-    override fun listArticles(selector: String): ResponseEntity<List<ArticleResponse>> {
+    override fun listArticles(selector: String, query: String?): ResponseEntity<List<ArticleResponse>> {
         val uuid = try {
             UUID.fromString(selector)
         } catch (e: IllegalArgumentException) {
@@ -50,17 +48,25 @@ class TangentialContentController(
         if (uuid != null)
             return ResponseEntity.ok(articleService.getDtosOfArticlesBy(uuid))
 
-        return ResponseEntity.ok(
-            when (selector.lowercase()) {
-                "current" -> articleService.getDtosOfArticlesBy(currentSession().maintainer)
-                "all" -> articleService.getDtosOfAllArticles()
-                else -> throw CatalystException(
-                    "Unknown Selector",
-                    "The article listing selector '${selector}' is undefined.",
-                    HttpStatus.UNPROCESSABLE_ENTITY
-                )
-            }
-        )
+        if (query == null)
+            return ResponseEntity.ok(
+                when (selector.lowercase()) {
+                    "current" -> articleService.getDtosOfArticlesBy(currentSession().maintainer)
+                    "all" -> articleService.getDtosOfAllArticles()
+                    else -> throw CatalystException(
+                        "Unknown Selector",
+                        "The article listing selector '${selector}' is undefined.",
+                        HttpStatus.UNPROCESSABLE_ENTITY
+                    )
+                }
+            )
+
+        val queriedArticles = luceneService.queryArticles(query)
+
+        if (selector.lowercase() == "current")
+            return ResponseEntity.ok(queriedArticles.filter { it.authorId == currentSession().maintainer.id })
+
+        return ResponseEntity.ok(queriedArticles)
     }
 
     override fun createArticle(articleCreationRequest: ArticleCreationRequest): ResponseEntity<ArticleResponse> {

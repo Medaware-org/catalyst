@@ -2,6 +2,7 @@ package org.medaware.catalyst.persistence.model
 
 import jakarta.persistence.*
 import org.medaware.catalyst.dto.ArticleResponse
+import org.medaware.catalyst.main
 import java.time.Instant
 import java.time.ZoneId
 import java.util.*
@@ -41,5 +42,6 @@ class ArticleEntity {
             title = title,
             date = createdAt.atZone(ZoneId.systemDefault()).toLocalDate(),
             id = id,
+            authorId = maintainer.id
         )
 }

@@ -269,6 +269,12 @@ paths:
           description: Specifies the users whose articles should be listed; User ID for a specified user, 'current' for the currently logged-in user, or 'all' for no filtering
           schema:
             type: string
+        - in: query
+          required: false
+          name: query
+          description: Search query
+          schema:
+            type: string
       responses:
         200:
           description: Articles returned
@@ -663,6 +669,7 @@ components:
         - title
         - date
         - topic
+        - authorId
       properties:
         author:
           type: string
@@ -672,6 +679,9 @@ components:
           type: string
           format: date
         id:
+          type: string
+          format: uuid
+        authorId:
           type: string
           format: uuid
 
