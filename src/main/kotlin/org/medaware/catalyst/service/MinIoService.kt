@@ -76,7 +76,7 @@ class MinIoService(
     }
 
     fun storeOrRetrieveResource(url: String): String {
-        val objectName = Base64.getEncoder().encodeToString(url.toByteArray())
+        val objectName = Base64.getUrlEncoder().encodeToString(url.toByteArray())
         var retrievedObject = retrieve(objectName, failIfNotExists = false)
         if (retrievedObject != null)
             return objectName

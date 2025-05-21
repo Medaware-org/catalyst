@@ -11,7 +11,7 @@ import org.springframework.web.reactive.function.client.WebClient
 
 data class OCRResponse(val data: List<String>)
 
-data class GHSResponse(val output: String, val scores: Map<String, Double>)
+data class GHSResponse(val output: List<String>, val scores: Map<String, Double>)
 
 @Service
 class OCRService(
@@ -37,6 +37,7 @@ class OCRService(
             HttpStatus.INTERNAL_SERVER_ERROR
         )
     } catch (e: Exception) {
+        e.printStackTrace()
         throw CatalystException("Connection Failed", "Could not connect to the OCR server", HttpStatus.NOT_FOUND)
     }
 
@@ -53,6 +54,7 @@ class OCRService(
             HttpStatus.INTERNAL_SERVER_ERROR
         )
     } catch (e: Exception) {
+        e.printStackTrace()
         throw CatalystException("Connection Failed", "Could not connect to the OCR server", HttpStatus.NOT_FOUND)
     }
 
