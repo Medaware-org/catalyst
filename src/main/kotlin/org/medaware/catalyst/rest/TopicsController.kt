@@ -6,7 +6,6 @@ import org.medaware.catalyst.dto.TopicCreationRequest
 import org.medaware.catalyst.dto.TopicResponse
 import org.medaware.catalyst.dto.UpdateTopicRequest
 import org.medaware.catalyst.service.TopicService
-import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.RestController
 
@@ -31,7 +30,7 @@ class TopicsController(
 
     override fun getAllTopics(): ResponseEntity<List<TopicResponse>> {
         return ResponseEntity.ok(topicService.getAllTopics().map {
-            it.toDto()
+            it.toDto(topicService.getFallbackTopic().id == it.id)
         })
     }
 

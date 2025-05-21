@@ -831,6 +831,7 @@ components:
         - color
         - textColor
         - editable
+        - isFallback
       properties:
         id:
           type: string
@@ -845,3 +846,5 @@ components:
           type: boolean
         textColor:
           type: string
+        isFallback:
+          type: boolean

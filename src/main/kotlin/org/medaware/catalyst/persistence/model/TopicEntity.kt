@@ -27,14 +27,15 @@ class TopicEntity {
     @Column(name = "text_color")
     lateinit var textColor: String
 
-    fun toDto(): TopicResponse =
+    fun toDto(isFallback: Boolean): TopicResponse =
         TopicResponse(
             id = id,
             name = name,
             description = description,
             color = color,
             editable = editable,
-            textColor = textColor
+            textColor = textColor,
+            isFallback = isFallback
         )
 
 }
