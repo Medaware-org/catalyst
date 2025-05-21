@@ -27,7 +27,7 @@ class PublicController(
     override fun getAllArticles(): ResponseEntity<List<ArticleResponse>> =
         ResponseEntity.ok(articleService.getAllArticles().map { it.toDto() })
 
-    
+
     override fun requestOCR(file: Resource): ResponseEntity<RequestOCR200Response> =
         ResponseEntity.ok(
             RequestOCR200Response(

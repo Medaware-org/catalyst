@@ -6,6 +6,7 @@ import org.medaware.catalyst.dto.TopicCreationRequest
 import org.medaware.catalyst.dto.TopicResponse
 import org.medaware.catalyst.dto.UpdateTopicRequest
 import org.medaware.catalyst.service.TopicService
+import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.RestController
 
@@ -24,7 +25,7 @@ class TopicsController(
     }
 
     override fun deleteTopic(deleteTopicRequest: DeleteTopicRequest): ResponseEntity<Unit> {
-        topicService.removeTopic(deleteTopicRequest.id)
+        topicService.removeTopic(deleteTopicRequest.id, topicService.getFallbackTopic())
         return ResponseEntity.ok().build()
     }
 

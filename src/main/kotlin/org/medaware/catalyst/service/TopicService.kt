@@ -10,6 +10,7 @@ import org.medaware.catalyst.persistence.repository.TopicRepository
 import org.medaware.catalyst.textColor
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
+import org.springframework.stereotype.Component
 import org.springframework.stereotype.Service
 import java.util.*
 
@@ -20,11 +21,11 @@ class TopicService(
     val articleRepository: ArticleRepository
 ) {
 
-    private var fallbackTopic: TopicEntity? = null
+    private lateinit var fallbackTopic: TopicEntity
 
     private var logger = LoggerFactory.getLogger(TopicService::class.java)
 
-    fun getFallbackTopic() = fallbackTopic!!
+    fun getFallbackTopic() = fallbackTopic
 
     @PostConstruct
     @Transactional
@@ -39,7 +40,9 @@ class TopicService(
             )
         }
 
-        if (fallbackTopic!!.editable)
+        logger.info("Fallback topic is \"${fallbackTopic.name}\"")
+
+        if (fallbackTopic.editable)
             throw IllegalStateException("The default topic \"${defaultTopicConfig.name}\" (\"${defaultTopicConfig.description}\") must not be editable!")
     }
 
@@ -107,12 +110,17 @@ class TopicService(
         topicRepository.delete(topic);
     }
 
-    fun removeTopic(id: UUID, fallback: TopicEntity = this.fallbackTopic!!) {
+    fun removeTopic(id: UUID, fallback: TopicEntity) {
         val topic = retrieveTopic(id)
+
+        if (topic.id == fallback.id)
+            throw CatalystException("Topic Removal Failed", "Cannot remove fallback topic.", HttpStatus.BAD_REQUEST)
+
         articleRepository.getArticleEntitiesByTopic(topic).forEach { article ->
             article.topic = fallback
             articleRepository.save(article)
         }
+
         removeTopicEntity(topic);
     }
 
