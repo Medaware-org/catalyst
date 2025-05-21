@@ -9,12 +9,15 @@ import org.apache.lucene.index.DirectoryReader
 import org.apache.lucene.index.IndexWriter
 import org.apache.lucene.index.IndexWriterConfig
 import org.apache.lucene.index.Term
+import org.apache.lucene.queryparser.classic.MultiFieldQueryParser
+import org.apache.lucene.queryparser.classic.QueryParser
 import org.apache.lucene.search.BooleanClause
 import org.apache.lucene.search.BooleanQuery
 import org.apache.lucene.search.FuzzyQuery
 import org.apache.lucene.search.IndexSearcher
 import org.apache.lucene.store.Directory
 import org.apache.lucene.store.RAMDirectory
+import org.hibernate.sql.ast.tree.select.QueryPart
 import org.medaware.catalyst.dto.ArticleResponse
 import org.medaware.catalyst.persistence.model.ArticleEntity
 import org.slf4j.Logger
@@ -68,6 +71,7 @@ class LuceneService(
         document.add(TextField("content", content, Field.Store.YES))
         document.add(TextField("id", article.id.toString(), Field.Store.YES))
         document.add(TextField("author", article.maintainer.username, Field.Store.YES))
+        document.add(TextField("authorId", article.maintainer.id.toString(), Field.Store.YES))
         document.add(TextField("topic", article.topic.name.lowercase(), Field.Store.YES))
         document.add(TextField("date", article.createdAt.toString(), Field.Store.YES))
         writer.addDocument(document)
@@ -75,13 +79,10 @@ class LuceneService(
 
     fun queryArticles(query: String): List<ArticleResponse> {
         val fields = arrayOf("title", "content", "id", "author")
-        val booleanQuery = BooleanQuery.Builder()
-        fields.forEach {
-            val fuzzy = FuzzyQuery(Term(it, query))
-            booleanQuery.add(fuzzy, BooleanClause.Occur.SHOULD);
-        }
-        val query = booleanQuery.build()
-        val tops = searcher.search(query, 100)
+        val parser = MultiFieldQueryParser(fields, analyzer)
+        val sanitized = QueryParser.escape(query) + "~"
+        val luceneQuery = parser.parse(sanitized)
+        val tops = searcher.search(luceneQuery, 100)
         val responses: MutableList<ArticleResponse> = mutableListOf()
         tops.scoreDocs.forEach {
             val document = searcher.doc(it.doc)
@@ -90,6 +91,7 @@ class LuceneService(
                     document.get("author"),
                     document.get("title"),
                     Instant.parse(document.get("date")).atZone(ZoneId.systemDefault()).toLocalDate(),
+                    UUID.fromString(document.get("authorId")),
                     UUID.fromString(document.get("id")),
                 )
             )

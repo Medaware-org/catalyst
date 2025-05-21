@@ -48,7 +48,7 @@ class TangentialContentController(
         if (uuid != null)
             return ResponseEntity.ok(articleService.getDtosOfArticlesBy(uuid))
 
-        if (query == null)
+        if (query == null || query.trim().length < 3)
             return ResponseEntity.ok(
                 when (selector.lowercase()) {
                     "current" -> articleService.getDtosOfArticlesBy(currentSession().maintainer)
