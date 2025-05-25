@@ -45,3 +45,9 @@ class ArticleEntity {
             authorId = maintainer.id
         )
 }
+
+fun Article(block: ArticleEntity.() -> Unit): ArticleEntity {
+    val article = ArticleEntity()
+    article.block()
+    return article
+}
