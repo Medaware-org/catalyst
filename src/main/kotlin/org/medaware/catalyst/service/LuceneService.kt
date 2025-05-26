@@ -74,7 +74,7 @@ class LuceneService(
     fun queryArticles(query: String): List<ArticleResponse> {
         writer.deleteAll()
         buildInitialIndex()
-        
+
         // Query too short to perform a reasoanble fuzzy search
         if (query.length < 3)
             return articleService.getAllArticles().map { it.toDto() }
