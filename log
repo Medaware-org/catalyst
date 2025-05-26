@@ -1,0 +1,726 @@
+commit 9b44f018f49c5e69bb34b987efd20a73c9f387bf
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Sun May 25 10:29:20 2025 +0200
+
+    Add Unit tests for Article queries via Lucene
+
+commit 65e6271cc0495e5f3267fa5f49fb6a8203946d11
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Wed May 21 22:18:16 2025 +0200
+
+    Implement article search in Tangential
+
+commit 0bba5d1631127b2f8627025a288c760e9b6380a2
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Wed May 21 21:56:21 2025 +0200
+
+    Bump
+
+commit e13ff5b98977cf525d7eaaff1997504eedcbc3b4
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Wed May 21 21:24:19 2025 +0200
+
+    Counterpart to: Implement topic editing, CRUD (TAN)
+
+commit f97954a9e505663afda805617e8cf67aa3f0f56e
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Wed May 21 20:38:07 2025 +0200
+
+    Fix topic removal feature
+
+commit dec902efaf1d72115e416dee1769705ff25d04e5
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Wed May 21 15:42:41 2025 +0200
+
+    Use URL encoder for MinIO hashes
+
+commit bd441103ce3cf307bc61e8239925bdc241acc77f
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Tue May 20 09:22:30 2025 +0200
+
+    Proper error handling, make tangential rendering route public
+
+commit edcd64ad737210e44a64d544c0c8798e6787cfb6
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Tue May 20 01:09:11 2025 +0200
+
+    Update submodule ref, adjust codebase
+
+commit 4017a4964e3ad91a914233912263c32a12688586
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Tue May 20 00:55:29 2025 +0200
+
+    Implement endpoints for OCR and GHS, update submodule ref
+
+commit e6245bb7ef945b22fa549f986778ec268e2ab2b5
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Mon May 19 23:43:06 2025 +0200
+
+    Make the `/articles` route public
+
+commit b4542efb06b1144fef7b81985f0af67895651865
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Mon May 19 23:21:21 2025 +0200
+
+    Update submodule ref
+
+commit cc4ff120b0cb6b02e3926975d82281f387adf7a5
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Mon May 19 23:21:00 2025 +0200
+
+    Fixes, implement `getAllArticles` operation
+
+commit 96e8b431aee1b8ebd4e372452dd8caa53325f2be
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Mon May 19 23:12:55 2025 +0200
+
+    Replace `queryResponse` with `articleResponse`
+
+commit 53523517d096d6fb6715c1056b3e147a5571e0c4
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Wed May 7 16:37:40 2025 +0200
+
+    Make route `/tan/articles/all` public
+
+commit bf011cde6a9874311b0af94267bafe147731e7be
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Wed May 7 14:00:51 2025 +0200
+
+    Rename sysadmin to "Webmaster" like it's the 2000s
+
+commit 5a8270ee7f663fb3642a68902e7020123bd76c39
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Sun Apr 6 12:53:30 2025 +0200
+
+    Fix color calculations for topic pills
+
+commit f99cd28b8d91199d249e3e1be4bcee18d6b08faf
+Author: Semmelon <138894594+Semmelon@users.noreply.github.com>
+Date:   Sat Jan 4 15:52:51 2025 +0100
+
+    add visibility field in article
+
+commit 85458eaceb999d3d81fb21ccff18f4b4ccd0c983
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Sat Dec 28 18:29:55 2024 +0100
+
+    Implement endpoint for querying articles via Lucene
+
+commit bf954633f3ad449ae597b2722d7952099d5cfe29
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Sat Dec 28 18:29:38 2024 +0100
+
+    Update submodule ref
+
+commit 5a9c5bc4c0f8758d4b56552ff427753ba724badc
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Thu Nov 21 20:27:05 2024 +0100
+
+    Determine optimal text color based on luminance calculations
+
+commit 30eb90950abc3f3f1e7eefb41896b43e5226dbf5
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Thu Nov 21 20:26:48 2024 +0100
+
+    Update openapi ref
+
+commit ca77235093c3e8b498a8942afa3b57df655b745c
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Thu Nov 21 20:13:48 2024 +0100
+
+    Improve color validation function
+
+commit 2ee683b6884c00af042ae6314d605d1a70cd7677
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Thu Nov 21 14:47:26 2024 +0100
+
+    Dump local changes
+
+commit 430e50050edfb84855814dced12085a45cc75d9c
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Thu Nov 21 14:41:32 2024 +0100
+
+    Return editable status when listing topics
+
+commit 5005425e87c881d20dcea6ddc16b409917edf191
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Thu Nov 21 14:22:20 2024 +0100
+
+    Implement article update endpoint
+
+commit 399860bdd2f9ee4ad3880ac800cd3453456e9ffd
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Thu Nov 21 14:12:11 2024 +0100
+
+    Add a color setting to the default fallback topic
+
+commit 9313d711fb43061cac3a931d593c8e5cb0fddec8
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Thu Nov 21 14:05:39 2024 +0100
+
+    Add topic color to create and update actions, implement hex color validation
+
+commit c7820930c0f3c6959b74b830275de4735bc22f25
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Thu Nov 21 13:33:40 2024 +0100
+
+    Make the article retrieval endpoint return article topics
+
+commit 92e564d6616ea047d72c72aebeb83b40695008e1
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Thu Nov 21 13:25:15 2024 +0100
+
+    Implement CRUD endpoints for topics
+
+commit 2e9f2af031ba477d0d34812465cc52c253bf6176
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Thu Nov 21 13:24:49 2024 +0100
+
+    Update submodule ref
+
+commit 9b9ec72bff6ba7cdb165a9191371abb1b9c54602
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Thu Nov 21 08:48:34 2024 +0100
+
+    Add topics table and make the article table point to a topic
+
+commit a8c4fa9dbb941a0185e5456eb6f4409ca11585a2
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Thu Nov 7 15:01:05 2024 +0100
+
+    Add instructions to create MinIO bucket and access key
+
+commit 93ddfcde808d74d1e5c5540f540f54ce9b8210bb
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Thu Nov 7 14:49:12 2024 +0100
+
+    Add MinIO setup section
+
+commit c3339a2eab513dd65924bb8c1cbf970a583c44dc
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Thu Nov 7 14:27:30 2024 +0100
+
+    Mention the setup script in the readme
+
+commit 2159f90e6e14efadf2eb127cd45431957f661e85
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Thu Nov 7 13:14:25 2024 +0100
+
+    Make the kotlin compilation stage depend on openApiGenerate, Add dev instructions to the README
+
+commit 1e3e8ba1d716385dd6c05e1285be7b4d9b688e9d
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Thu Nov 7 12:23:24 2024 +0100
+
+    Change submodule URL to HTTPS
+
+commit b0f40d2da028eecae7c1567f12b09dd9ce5d5c84
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Tue Oct 15 19:03:37 2024 +0200
+
+    Implement endpoint for renaming articles
+
+commit f48d6652f06795646807a99029a835118c6ac27a
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Sun Oct 13 13:45:48 2024 +0200
+
+    Implement endpoint for retrieving a map of value constraints
+
+commit 96f023a1fd5b9e2881dc6af5a50ad6744a632584
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Sun Oct 13 13:11:23 2024 +0200
+
+    Implement endpoint for retrieving value constraints of a given meta element
+
+commit ffb2bcdc5c95c00ed9ddc712df32ab83524211fb
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Sun Oct 13 12:32:11 2024 +0200
+
+    Add option to fail with an exception when S3 object does not exist on retrieval
+
+commit a9833394d175de005b380d09ccee36e928c830ee
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Sun Oct 13 02:07:26 2024 +0200
+
+    Add support for pre-fetching and storing AVIS resources in a MinIO instance
+
+commit 3596a1ad11110817e4d0a1e935008592ee4eaca4
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Sat Oct 12 23:32:19 2024 +0200
+
+    Implement aux data endpoint
+
+commit 63622419131e0efdd05e2fb7219e5a10089fc182
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Sat Oct 12 18:06:09 2024 +0200
+
+    Update openapi submodule ref
+
+commit 647a865c5270623c722553cf5c749cead12a9f44
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Sat Oct 12 18:03:27 2024 +0200
+
+    Code cleanup, sligtly changed mechanic of putMeta function, drop cascade on foreign keys
+
+commit 091b9a1795deb87a192faaab3ab9cf41bcec33d5
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Wed Oct 9 05:40:54 2024 +0200
+
+    Add a hacky workaround for transaction sync
+
+commit 966dcf3bb392eb6f73cd88a0f51aaa5cc0dcf8c6
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Tue Oct 8 16:20:46 2024 +0200
+
+    Fix article removal impl
+
+commit b7a060952a5e13146f6c86b5f8a200a98db86cdb
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Tue Oct 8 14:55:37 2024 +0200
+
+    Implement endpoint for deleting articles, update submodule ref
+
+commit f9015325245068ec28852a01cb6733cd752bd899
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Sun Oct 6 21:04:41 2024 +0200
+
+    Implement endpoint for updating account details of maintainers
+
+commit bdee3282f80af6c8389bac94ae066000dec05ab3
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Sun Oct 6 11:21:52 2024 +0200
+
+    Unify API endpoints
+
+commit ac18e05ebb4778fb66d22c842f86f88b6f5b4232
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Sun Oct 6 11:18:01 2024 +0200
+
+    Update openapi ref
+
+commit 56354050e487d342a663109a6a93cb2387a15192
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Sun Oct 6 11:17:36 2024 +0200
+
+    Implement endpoint for deleting existing sequential elements
+
+commit 99f93bf4c73b6640958bfc709b4fffbb30ad9510
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Sun Oct 6 11:03:52 2024 +0200
+
+    Update submodule ref
+
+commit 55d9c2112fdefe82af43ec1917a948bd7865b839
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Sun Oct 6 11:03:29 2024 +0200
+
+    Implement endpoint for quickly switching between element types
+
+commit ec6da4f0e82a6b9178b3bf144f79715a8e902790
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Sun Oct 6 05:45:54 2024 +0200
+
+    Update openapi submodule ref
+
+commit 45856e2b1fa45f40d941594b98dfb46e606a2f51
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Sun Oct 6 05:45:19 2024 +0200
+
+    Add reference to parent article in the sequential element table, handle inserting elements before root (after `null`)
+
+commit 527df11cf8ab4e5e4f143da2ffaac9f28a2ac537
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Sat Oct 5 22:04:38 2024 +0200
+
+    Add HttpRequestMethodNotSupportedException to the @ExceptionHandler, implement endpoints for listing and inserting elements as well as retrieving articles without forcefully triggering the render pipeline.
+
+commit b8677089d3a76ce03a0d078ea55cd59805e59793
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Sat Oct 5 21:13:56 2024 +0200
+
+    Render articles through AVIS
+
+commit ecb6c14c63b478ce4537cd07af8dc131a43e9e25
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Sat Oct 5 19:50:21 2024 +0200
+
+    Bump AVIS version in the build script & readme
+
+commit 8818897738c58da970a030c5166e9126c2addc2c
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Sat Oct 5 16:23:33 2024 +0200
+
+    Add an AVIS interface service, implement endpoint for test-rendering, update openapi submodule ref
+
+commit 249a579d357249d6138a8448a78243c0f612d7a5
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Sat Oct 5 14:34:16 2024 +0200
+
+    Add render task service, update repo functions to include article param
+
+commit dc4df26dd7dcb50144aca04331ab6cb014c0321b
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Sat Oct 5 14:10:13 2024 +0200
+
+    Add render task table, entity and repository
+
+commit 819c20664a0937c3868766bd0ad88665e01ca7df
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Fri Oct 4 21:52:26 2024 +0200
+
+    Update submodule ref
+
+commit e9e844fa5bb61824d93452bc26fe3505ed5be006
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Fri Oct 4 21:51:55 2024 +0200
+
+    Implement metadata entities and services, implement metadata create & read endpoints
+
+commit 9f0ce46102dfc09321e4c2cc90d19af7382c459d
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Fri Oct 4 17:13:48 2024 +0200
+
+    Replace placeholder secured route with whoami route, update submodule ref
+
+commit f2b8ab858e766313da8b8b11c8dc0cda2194e77e
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Fri Oct 4 14:46:55 2024 +0200
+
+    Implement article creation via openapi endpoint
+
+commit 6e23c47028831c6e0af3975e7007f73848b5ea0b
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Fri Oct 4 14:46:10 2024 +0200
+
+    Update openapi submodule ref
+
+commit abda1832039a12b341d8ce8d4d3e9c445febaa3e
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Fri Oct 4 13:14:24 2024 +0200
+
+    Start building the SQL backbone for the Tangential editor through the implementation of sequential elements
+
+commit e5b581ef1488f3d7ef16324ab93f24835a178814
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Thu Oct 3 19:25:57 2024 +0200
+
+    Move openapi spec endpoint to its own package
+
+commit f0b146343bbb02f9dafd2c37337a681db593116e
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Thu Oct 3 19:03:00 2024 +0200
+
+    Create a sub-package for tangential rest endpoints
+
+commit 155bbbbe744ee9e4f9f06fbcbac34a6ddc275e7c
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Thu Oct 3 19:01:24 2024 +0200
+
+    Split tangential endpoints up into sub-categories
+
+commit ac4a4effe6c4cff4e48c9f9a68f081870b1ce5e4
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Thu Oct 3 18:53:59 2024 +0200
+
+    Update article listing endpoint to include selector-based request
+
+commit 8848ef5000a8f8b279701f804141d161626ac9a0
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Thu Oct 3 18:53:25 2024 +0200
+
+    Update submodule ref
+
+commit 73bd4c5b6142bf8becc52b48cef0e7fe0a60787e
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Thu Oct 3 14:26:29 2024 +0200
+
+    Implement endpoint for retrieving own articles, update database to support storing article info
+
+commit e6145fe4f29b25c60dbd71d66f5f49c7779d5460
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Thu Oct 3 14:26:12 2024 +0200
+
+    Update openapi submodule ref
+
+commit 28636dd13053e76bd143226004cfaece3889747f
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Thu Oct 3 12:46:54 2024 +0200
+
+    Implement secured status route, update openapi submodule ref
+
+commit d254f3490316cc95adab1f7705b4ed81117b71ff
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Wed Oct 2 16:43:55 2024 +0200
+
+    Implement logout endpoint
+
+commit c19e5a6b072ed459554bf27b295b8c13ee3c9942
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Wed Oct 2 16:43:41 2024 +0200
+
+    Update openapi submodule ref
+
+commit 766de9394a41e13c1da9c2b54030ac7b1f5b1eb4
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Wed Oct 2 16:20:11 2024 +0200
+
+    Add login delay to slow down brute-force attacks
+
+commit faa26b5fb4e725a06f0b25f5ca6bf0a25fc92942
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Wed Oct 2 14:07:44 2024 +0200
+
+    Update submodule ref: Use OpenAPI error DTO
+
+commit 3684a88498ca18cc147e9c2f7f60de972de7c5d4
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Tue Oct 1 20:26:54 2024 +0200
+
+    Re-use pre-existing session tokens. Add option to invalidate existing sessions
+
+commit cdfb0d8141a017489ec832c86daeaab7ab69ba1d
+Merge: 59b864a 325336b
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Tue Oct 1 16:36:08 2024 +0200
+
+    Merge branch 'main' into dev/catalyst-2
+
+commit 59b864ad94968227ecf22db976c293af751606a3
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Tue Oct 1 16:31:54 2024 +0200
+
+    Update openapi submodule ref
+
+commit 38513265ac98ff4ff280e31e36b23271a4a7ace2
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Tue Oct 1 16:30:25 2024 +0200
+
+    Add tangential login endpoint, add error handling
+
+commit 1ae00d7657e9e672dc8ca7893098c9b43b647133
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Tue Oct 1 14:35:01 2024 +0200
+
+    Invoke `CorsFilter` on public access routes
+
+commit 1d1b8231c25db2b8918f4835b27dbd2f1db42ab4
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Tue Oct 1 14:31:29 2024 +0200
+
+    Implement CORS filter
+
+commit 19ef5206c586ddaafc3b6a87f539fc04f8592a27
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Tue Oct 1 14:25:58 2024 +0200
+
+    Implement token-based authentication filters
+
+commit 0a5940f64aa99dac9530409b250244c05e9323fe
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Tue Oct 1 12:39:08 2024 +0200
+
+    Add maintainer and session tables with a `MaintainerEntity` and a `SessionEntity` respectively
+
+commit 1b5891ca09eb67cab67182dd4948c6258d372a9d
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Mon Sep 30 21:42:01 2024 +0200
+
+    Implement anterogradia compilation endpoint
+
+commit 809b0c21ede841afa493ce1b60f4758dcccfdc96
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Mon Sep 30 21:41:39 2024 +0200
+
+    Update submodule ref
+
+commit 9493b56a269599280eabfa4875546976796afb6a
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Mon Sep 30 20:44:44 2024 +0200
+
+    Gradle: Copy openapi spec to resources folder on build
+
+commit b0ad896cdc16c26c1b6558d2d7d3994a90b8149c
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Mon Sep 30 20:42:02 2024 +0200
+
+    Server openapi YAML spec to swagger doc UI
+
+commit 9399b7d25db5ba21528cf185d240cd1672a5a622
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Mon Sep 30 19:49:33 2024 +0200
+
+    Add status endpoint, banner, update submodule
+
+commit fb022b0c47855274f1f977d2031cec5a8983e79d
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Mon Sep 30 19:48:20 2024 +0200
+
+    Remove build
+
+commit e7eac659214d0dfbe732f3a32c042d6d327cd31e
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Mon Sep 30 19:01:18 2024 +0200
+
+    Mention AVIS as dependency in readme
+
+commit 7285b667f4009e020d4ac19ccbe52589de610c8c
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Mon Sep 30 19:00:36 2024 +0200
+
+    Rename help.md to readme, include avis as gradle dependency
+
+commit d596cee5e787e0dea9a3a4de72067fcfb8473e51
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Mon Sep 30 18:29:25 2024 +0200
+
+    Remove .gradle
+
+commit fb82788e1c2347f5d09827d25696623d85f85ab7
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Mon Sep 30 18:28:29 2024 +0200
+
+    Update readme, include Anterogradia dependency
+
+commit a22f08f61fdf7f16a92c7ccad7fed2a0cc974c94
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Mon Sep 30 18:28:14 2024 +0200
+
+    Add .gitignore
+
+commit 197584733f87d18f8f5aa16146953592b0f7f79f
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Mon Sep 30 11:43:16 2024 +0200
+
+    Config openapi generator
+
+commit d7bd1358df73f88ad0558455f4026cd365e464c0
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Mon Sep 30 11:25:40 2024 +0200
+
+    Add openapi submodule
+
+commit 1ffac82f0fc13c7748619a67a95e4e862ee00484
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Mon Sep 30 11:24:31 2024 +0200
+
+    Start working on the new Catalyst
+
+commit 325336b43d7b1c14caf0e52cc3ac76240e1ab494
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Wed Sep 25 19:24:22 2024 +0200
+
+    Improve formatting in the readme
+
+commit 8152d3b4c7edaa0e81aeef51b984a1cc2cd7589d
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Wed Sep 25 19:23:44 2024 +0200
+
+    Rename readme to reflect rebranding
+
+commit 8bc9c9a17f946f75fe7fdbb0700d8879c738f1a0
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Wed Sep 25 19:22:34 2024 +0200
+
+    Gradle: Change dependency name to `anterogradia-avis`
+
+commit a90a5a8df301e6ee4eb0c8d240b45d697f8a4853
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Sat Sep 21 00:07:13 2024 +0200
+
+    Add note regarding MaW dependencies
+
+commit e57298e7236c47f245febad3297442b75761dfd5
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Sat Sep 21 00:02:27 2024 +0200
+
+    Switch to using latest version of anterogradia, add `antg-mdk`
+
+commit 4ae5d2a597f1e8b5d9080961b9bba5b9bbb3fd55
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Sat Sep 21 00:00:03 2024 +0200
+
+    Switch to java 20, add `org.medaware:anterogradia:1.0.0` as dependency from local mvn repo
+
+commit 3b51bff9c229645741eaa47400f597e7bdaff2a7
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Mon Sep 16 19:52:08 2024 +0200
+
+    Add idea configuration
+
+commit f7f2ccdf42502504ed171752e9cdb4528a78c420
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Mon Sep 16 19:30:47 2024 +0200
+
+    add openapi spec as git submodule
+
+commit 26dcdf8acd95335b99f1f142b1a7389a4aee7da7
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Mon Sep 16 19:30:31 2024 +0200
+
+    Remove openapi spec file
+
+commit 3e71adc7fed01090854889584a5b00dc9e497238
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Mon Jun 3 20:05:12 2024 +0200
+
+    Add all articles endpoint
+
+commit cb67c365e5dafd02913f02f05fa1e534a5278c85
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Sat Jun 1 12:24:20 2024 +0200
+
+    Dump changes.
+
+commit c805d32d3238d00cce760b827acf7bbd87564a7d
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Thu May 9 18:35:42 2024 +0200
+
+    Move article querying to custom publicly-accessible endpoint. Move the request body to query params.
+
+commit ede33ab912a8c865360ed37716f805cb3f34cf34
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Thu May 9 18:18:19 2024 +0200
+
+    Implement article creation and search via Lucene
+
+commit 367707b5e368823e80c580c13fa70eb7c3cb71f2
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Thu May 9 13:32:38 2024 +0200
+
+    Remove MORE untracked files
+
+commit d5b64ac5e72640d0039591c51fcabaead61124a8
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Thu May 9 13:31:28 2024 +0200
+
+    Fix some bugs & implement logout functionality
+
+commit e748d1295156ff856659259c533ff110aee7b909
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Thu May 9 12:49:01 2024 +0200
+
+    Add a .gitignore and remove matching untracked files
+
+commit 3eab1fcdf0c62f5c570d1eaa9f3a37551d4499fd
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Thu May 9 12:47:26 2024 +0200
+
+    Implement token-based authentication system
+
+commit 40e399253b7f5efa5e4879d453404a6a1e10b286
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Wed Mar 13 11:34:46 2024 +0100
+
+    add readme
+
+commit f597d60e772d65d8761f29e2e613ec933a76973a
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Wed Mar 13 11:31:55 2024 +0100
+
+    Initial commit: Add spring initializr project
+
+commit b4e987f3be745d04f298b459d6b23876863528b6
+Author: Piotr K. Wyrwas <pw.piotr.wyrwas@gmail.com>
+Date:   Wed Mar 13 11:10:18 2024 +0100
+
+    Initial commit

@@ -40,7 +40,7 @@ class LuceneService(
         analyzer = StandardAnalyzer()
         writerConfig = IndexWriterConfig(analyzer)
         writer = IndexWriter(index, writerConfig)
-//        buildInitialIndex()
+        buildInitialIndex()
     }
 
     fun buildInitialIndex() {
@@ -50,7 +50,6 @@ class LuceneService(
             indexArticle(it)
             articleCount++
         }
-//        writer.close()
         if (articleCount == 0)
             return;
 
@@ -98,6 +97,13 @@ class LuceneService(
             )
         }
         return responses
+    }
+
+    fun queryUnique(queries: List<String>): List<ArticleResponse> {
+        val results = mutableListOf<ArticleResponse>()
+        queries.forEach {
+            TODO()
+        }
     }
 
 }
