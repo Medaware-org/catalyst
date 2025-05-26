@@ -99,11 +99,11 @@ class LuceneService(
         return responses
     }
 
-    fun queryUnique(queries: List<String>): List<ArticleResponse> {
-        val results = mutableListOf<ArticleResponse>()
-        queries.forEach {
-            TODO()
-        }
-    }
+//    fun queryUnique(queries: List<String>): List<ArticleResponse> {
+//        val results = mutableListOf<ArticleResponse>()
+//        queries.forEach {
+//            TODO()
+//        }
+//    }
 
 }

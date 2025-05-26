@@ -75,7 +75,7 @@ kotlin {
 tasks.compileKotlin {
     dependsOn("openApiGenerate")
     doFirst {
-        Files.copy(File("openapi/spec.yaml"), File("src/main/resources/spec.yaml"))
+        Files.copy(File("$rootDir/openapi/spec.yaml"), File("$rootDir/src/main/resources/spec.yaml"))
     }
 }
 
