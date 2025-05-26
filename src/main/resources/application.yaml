@@ -2,7 +2,7 @@ spring:
   application:
     name: catalyst
   datasource:
-    url: jdbc:postgresql://localhost:5432/catalystdb
+    url: jdbc:postgresql://mawd-postgres:5432/catalystdb
     username: catalyst
     password: medaware
     driver-class-name: org.postgresql.Driver
@@ -17,12 +17,12 @@ springdoc:
     url: /catalyst-api-docs
 
 catalyst:
-  server: http://localhost:8080
+  server: http://mawd-cat:8080
   default-access:
     username: admin
     password: admin
   minio:
-    endpoint: http://localhost:9000
+    endpoint: http://mawd-minio:9000
     access-key: catalyst
     secret-key: medaware
     bucket: catalyst-resources
@@ -31,4 +31,4 @@ catalyst:
     description: The default fallback topic
     color: "#bdc3c7"
   ocr:
-    url: http://localhost:4000
+    url: http://mawd-ocr:4000
