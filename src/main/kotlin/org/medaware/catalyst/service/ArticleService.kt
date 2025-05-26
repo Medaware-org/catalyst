@@ -17,7 +17,8 @@ class ArticleService(
     val renderTaskService: RenderTaskService,
     val metadataService: MetadataService,
     val maintainerService: MaintainerService,
-    val topicService: TopicService
+    val topicService: TopicService,
+    val luceneService: LuceneService
 ) {
 
     fun getArticlesBy(maintainer: MaintainerEntity): List<ArticleEntity> =
@@ -72,6 +73,8 @@ class ArticleService(
 
         article.rootElement = titleElement.id
         articleRepository.save(article)
+
+        luceneService.indexArticle(article)
 
         return article.toDto()
     }
