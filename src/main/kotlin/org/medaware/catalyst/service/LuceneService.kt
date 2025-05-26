@@ -72,9 +72,6 @@ class LuceneService(
     }
 
     fun queryArticles(query: String): List<ArticleResponse> {
-        if (!DirectoryReader.indexExists(index))
-            return emptyList()
-        
         // Query too short to perform a reasoanble fuzzy search
         if (query.length < 3)
             return articleService.getAllArticles().map { it.toDto() }
