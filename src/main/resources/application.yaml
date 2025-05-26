@@ -32,4 +32,4 @@ catalyst:
     description: The default fallback topic
     color: "#bdc3c7"
   ocr:
-    url: http://mawd-ocr:4000
+    url: http://localhost:4000
