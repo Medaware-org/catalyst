@@ -10,6 +10,11 @@ spring:
     create-schemas: true
     schemas:
       - catalyst
+  servlet:
+    multipart:
+      max-file-size: 10GB
+      max-request-size: 10GB
+
 server:
   port: 8080
   address: 0.0.0.0
@@ -18,7 +23,7 @@ springdoc:
     url: /catalyst-api-docs
 
 catalyst:
-  server: http://mawd-cat:8080
+  server: https://api.medaware.dev
   default-access:
     username: admin
     password: admin
@@ -32,4 +37,4 @@ catalyst:
     description: The default fallback topic
     color: "#bdc3c7"
   ocr:
-    url: http://localhost:4000
+    url: http://host.docker.internal:4000
