@@ -1,10 +1,7 @@
 package org.medaware.catalyst.rest
 
 import org.medaware.catalyst.api.PublicApi
-import org.medaware.catalyst.dto.ArticleResponse
-import org.medaware.catalyst.dto.RequestGHS200Response
-import org.medaware.catalyst.dto.RequestGHS200ResponseScoresInner
-import org.medaware.catalyst.dto.RequestOCR200Response
+import org.medaware.catalyst.dto.*
 import org.medaware.catalyst.exception.CatalystException
 import org.medaware.catalyst.service.ArticleService
 import org.medaware.catalyst.service.LuceneService
@@ -28,17 +25,30 @@ class PublicController(
         ResponseEntity.ok(articleService.getAllArticles().map { it.toDto() })
 
 
-    override fun requestOCR(file: Resource): ResponseEntity<RequestOCR200Response> =
-        ResponseEntity.ok(
+    private fun searchUniqueSet(arr: List<String>): List<Pair<String, String>> {
+        val list = mutableListOf<Pair<String, String>>()
+        arr.forEach {
+            val articles = luceneService.queryArticles(it)
+            articles.forEach { list.add(it.title to "http://google.com") }
+        }
+        return list
+    }
+
+    override fun requestOCR(file: Resource): ResponseEntity<RequestOCR200Response> {
+        val ocrResult = ocrService.requestOcr(
+            file.filename ?: throw CatalystException(
+                "No Filename", "Could not request OCR: No filename given",
+                HttpStatus.BAD_REQUEST
+            ), file.contentAsByteArray
+        ).data
+
+        return ResponseEntity.ok(
             RequestOCR200Response(
-                ocrService.requestOcr(
-                    file.filename ?: throw CatalystException(
-                        "No Filename", "Could not request OCR: No filename given",
-                        HttpStatus.BAD_REQUEST
-                    ), file.contentAsByteArray
-                ).data
+                data = ocrResult,
+                articles = searchUniqueSet(ocrResult).map { RequestOCR200ResponseArticlesInner(it.first, it.second) }
             )
         )
+    }
 
     override fun requestGHS(file: Resource): ResponseEntity<RequestGHS200Response> {
         val response = ocrService.requestGhs(

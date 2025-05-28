@@ -130,6 +130,18 @@ paths:
                     type: array
                     items:
                       type: string
+                  articles:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        title:
+                          type: string
+                        link:
+                          type: string
+                      required:
+                        - title
+                        - link
 
   /ghs:
     post:

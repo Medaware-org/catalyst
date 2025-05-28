@@ -73,7 +73,9 @@ class LuceneService(
 
     fun queryArticles(query: String): List<ArticleResponse> {
         writer.deleteAll()
-        buildInitialIndex()
+
+//        TODO Uncomment this
+//        buildInitialIndex()
 
         // Query too short to perform a reasoanble fuzzy search
         if (query.length < 3)

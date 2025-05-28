@@ -30,7 +30,7 @@ class LuceneTests {
 
     @BeforeEach
     fun createTestingArticle() {
-        luceneService.config(buildIndex = false)
+        luceneService.config()
         luceneService.buildInitialIndex()
 
         testingArticle = Article {
